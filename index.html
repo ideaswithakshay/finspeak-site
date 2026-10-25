@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Finspeak: Learn to Speak Finance</title>
-<meta name="description" content="Duolingo-style lessons for the words money people use. Plain English, 5 minutes a day, built for your level.">
+<meta name="description" content="Bite-sized lessons for the words money people use. Plain English, 5 minutes a day, built for your level.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Finspeak: Learn to Speak Finance">
-<meta property="og:description" content="Duolingo-style lessons for the words money people use. 5 minutes a day, built for your level. Join the waitlist.">
+<meta property="og:description" content="Bite-sized lessons for the words money people use. 5 minutes a day, built for your level. Join the waitlist.">
 <meta property="og:url" content="https://ideaswithakshay.github.io/finspeak-site/">
 <meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -41,7 +41,7 @@
   .brand span { color:var(--g); }
   .nav-cta { font-weight:600; font-size:15px; text-decoration:none; padding:9px 16px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
 
-  /* buttons: chunky, like Duolingo */
+  /* buttons: chunky and pressable */
   .btn { height:56px; padding:0 26px; border:0; border-radius:16px; background:var(--g); color:#fff; font:900 17px Nunito,sans-serif;
          letter-spacing:.01em; cursor:pointer; box-shadow:0 4px 0 var(--g-dark); white-space:nowrap; transition:transform .06s, box-shadow .06s; }
   .btn:active { transform:translateY(4px); box-shadow:0 0 0 var(--g-dark); }
@@ -91,7 +91,7 @@
   .streak { font:900 15px Nunito,sans-serif; color:#FF8A00; }
   .tag { font:900 12px Nunito,sans-serif; letter-spacing:.08em; color:var(--blue); text-transform:uppercase; margin-bottom:8px; }
   .word { font:900 28px Nunito,sans-serif; margin-bottom:8px; }
-  .qtext { font-size:15.5px; line-height:1.45; color:#2B3530; margin-bottom:16px; }
+  .qtext { font-size:15.5px; line-height:1.45; color:#2B3530; margin-bottom:16px; white-space:pre-line; }
   .opts { display:grid; gap:9px; }
   .opt { text-align:left; padding:12px 14px; border-radius:14px; background:#fff; border:2px solid #E5E7E6; box-shadow:0 3px 0 #E5E7E6;
          font:800 15px Nunito,sans-serif; cursor:pointer; transition:transform .06s; }
@@ -180,11 +180,33 @@
   .swap .why p { font-size:15px; color:var(--night-sub); }
 
   /* math */
-  .math { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
-  .math .big { font:900 clamp(34px,4vw,46px) Nunito,sans-serif; letter-spacing:-.02em; color:var(--ink); }
-  .math .card.hot { border-color:var(--red); background:#FFF8F8; }
-  .math .card.hot .big { color:var(--red); }
-  .math .how { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; color:var(--sub); margin-top:8px; display:block; }
+  .chart-card { margin-top:40px; background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:22px 24px 18px; }
+  .legend { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:14px; color:var(--sub); margin-bottom:8px; }
+  .legend span { display:inline-flex; align-items:center; gap:8px; }
+  .legend .key { width:18px; height:3px; border-radius:2px; display:inline-block; }
+  .legend .swatch { width:14px; height:14px; border-radius:4px; background:rgba(229,72,77,.16); display:inline-block; }
+  .plot { position:relative; touch-action:pan-y; outline:none; border-radius:12px; }
+  .plot:focus-visible { box-shadow:0 0 0 3px var(--g-soft); }
+  .plot svg { display:block; width:100%; overflow:visible; }
+  .tip { position:absolute; top:10px; pointer-events:none; background:#fff; border:1px solid var(--line); border-radius:12px;
+         box-shadow:0 10px 30px rgba(15,26,20,.12); padding:10px 12px; font-size:13px; min-width:172px; z-index:3; }
+  .tip .t { font:800 13px Nunito,sans-serif; color:var(--sub); margin-bottom:5px; }
+  .tip .r { display:flex; align-items:center; gap:8px; margin-top:3px; }
+  .tip .r b { font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+  .tip .r span { color:var(--sub); }
+  .tip .k { width:14px; height:3px; border-radius:2px; flex:none; }
+  .tip .k.area { height:10px; border-radius:3px; background:rgba(229,72,77,.16); }
+  .mathline { display:grid; gap:5px; margin-top:12px; padding-top:14px; border-top:1px solid var(--line);
+              font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; color:var(--sub); }
+  .mathline b { color:var(--ink); font-weight:600; }
+  .mathline span { white-space:nowrap; }
+  details.tableview { border:0; padding:0; margin-top:12px; background:none; }
+  details.tableview summary { font:800 15px Nunito,sans-serif; color:var(--g-dark); justify-content:flex-start; }
+  details.tableview summary::after { margin-left:4px; }
+  .tableview table { width:100%; border-collapse:collapse; margin-top:8px; font-size:14px; font-variant-numeric:tabular-nums; }
+  .tableview th, .tableview td { text-align:right; padding:7px 8px; border-bottom:1px solid var(--line); }
+  .tableview th:first-child, .tableview td:first-child { text-align:left; }
+  .tableview th { font:800 13px Nunito,sans-serif; color:var(--sub); }
   .note { margin-top:18px; color:var(--sub); font-size:14px; max-width:760px; }
 
   /* faq */
@@ -227,6 +249,10 @@
     .lv .chips { display:none; }
     .path { padding:20px 16px 22px; }
     .node .dot { width:56px; height:52px; font-size:23px; }
+    .chart-card { padding:16px 12px 14px; border-radius:22px; }
+    .mathline { font-size:12px; }
+    .tableview table { font-size:12.5px; }
+    .tableview th, .tableview td { padding:6px 4px; }
     .nav-cta { display:none; }
     footer a { margin:0 18px 0 0; }
   }
@@ -239,7 +265,7 @@
 
   <header class="hero">
     <div>
-      <span class="pill">🔥 Like Duolingo, but for money words</span>
+      <span class="pill">🔥 5-minute lessons for money words</span>
       <h1>Learn to speak <span class="hl">finance.</span></h1>
       <p class="lead">Bite-sized lessons on the words money people use. Plain English, real examples, 5 minutes a day. Built for your level, from “what’s a stock?” to your first finance job.</p>
       <form class="waitlist" data-where="hero">
@@ -271,7 +297,7 @@
           </div>
           <div class="endcard" id="endcard">
             <div class="big">🎉</div>
-            <h4>One word down.</h4>
+            <h4 id="endTitle">Lesson done.</h4>
             <p>Finspeak teaches a few like this every day, at your level.</p>
             <a class="btn" href="#join" style="display:grid;place-items:center;text-decoration:none">Get early access</a>
             <button class="link" type="button" id="tryNext">Try a harder one</button>
@@ -304,7 +330,7 @@
 <section><div class="wrap">
   <div class="eyebrow">How it works</div>
   <h2>Five minutes a day. That’s it.</h2>
-  <p class="sub">Every lesson is one new word, a real-life example, and a quick question. Like Duolingo, it’s built so you actually come back tomorrow.</p>
+  <p class="sub">Every lesson is one new word, a real-life example, and a quick question. It’s short on purpose, so you actually come back tomorrow.</p>
   <div class="steps">
     <div class="card"><div class="n">1</div><h3>Find your level</h3><p>Answer a few quick questions. Total beginner or future analyst, you start in the right spot.</p></div>
     <div class="card"><div class="n">2</div><h3>Learn a few words a day</h3><p>Each word is explained in plain English first. Then you see it in a paycheck, a headline, or a job offer.</p></div>
@@ -335,10 +361,24 @@
   <div class="eyebrow">Why words matter</div>
   <h2>One word can cost you $374,000.</h2>
   <p class="sub">The word is “management fee.” Lots of people pay one without knowing what it adds up to. Here’s the math.</p>
-  <div class="math">
-    <div class="card"><div class="big">$1,522,451</div><p>$200,000 left to grow 7% a year for 30 years.<span class="how">200,000 × 1.07³⁰ = 200,000 × 7.612</span></p></div>
-    <div class="card"><div class="big">$1,148,698</div><p>The same money with a 1% yearly fee, so it grows 6%.<span class="how">200,000 × 1.06³⁰ = 200,000 × 5.743</span></p></div>
-    <div class="card hot"><div class="big">$373,753</div><p>What the 1% fee cost over 30 years.<span class="how">1,522,451 − 1,148,698</span></p></div>
+  <div class="chart-card">
+    <div class="legend">
+      <span><i class="key" style="background:var(--g)"></i>No fee: grows 7% a year</span>
+      <span><i class="key" style="background:var(--blue)"></i>1% yearly fee: grows 6% a year</span>
+      <span><i class="swatch"></i>Lost to fees</span>
+    </div>
+    <div class="plot" id="feeChart" tabindex="0" role="img"
+         aria-label="Line chart of $200,000 over 30 years. With no fee it grows to $1,522,451. With a 1% yearly fee it grows to $1,148,698. The fee costs $373,753. Use the left and right arrow keys to read each year.">
+      <div class="tip" id="feeTip" hidden></div>
+    </div>
+    <div class="mathline">
+      <div><span>No fee: 200,000 × 1.07³⁰</span> <span>= 200,000 × 7.612</span> <span>= <b>$1,522,451</b></span></div>
+      <div><span>1% fee: 200,000 × 1.06³⁰</span> <span>= 200,000 × 5.743</span> <span>= <b>$1,148,698</b></span></div>
+      <div><span>Lost to fees: 1,522,451 − 1,148,698</span> <span>= <b>$373,753</b></span></div>
+    </div>
+    <details class="tableview"><summary>See the numbers by year</summary>
+      <table><thead><tr><th>Year</th><th>No fee</th><th>1% fee</th><th>Lost to fees</th></tr></thead><tbody id="feeTable"></tbody></table>
+    </details>
   </div>
   <p class="note">Example numbers. The 7% yearly growth is an assumption, not a promise. Real markets go up and down. Finspeak teaches what words mean. It is not investment advice.</p>
 </div></section>
@@ -349,7 +389,7 @@
   <div class="faq">
     <details><summary>Who is Finspeak for?</summary><p>Anyone who feels lost when the money talk starts. Total beginners, people with a 401(k) they don’t understand, and students aiming for a finance job. You pick your level when you start.</p></details>
     <details><summary>I’m a total beginner. Is that OK?</summary><p>Yes. The first level starts at “what is interest?” Nothing is assumed. Every word is explained in plain English with a real example.</p></details>
-    <details><summary>I want a job in finance. Is it too basic for me?</summary><p>No. The “Going pro” level covers the words you need for interviews, like enterprise value, EBITDA and DCF, with practice questions.</p></details>
+    <details><summary>I want a job in finance. Is it too basic for me?</summary><p>No. The “Work in finance” level teaches how investors size up a business. You learn the six questions every good stock pitch answers, Peter Lynch’s six types of stock, and what keeps rivals out, like scale, network effects and switching costs. Then the napkin math: return on invested capital (ROIC), and a rough yearly return (IRR) in five minutes.</p></details>
     <details><summary>Is this investment advice?</summary><p>No. Finspeak teaches what finance words mean. It never tells you what to buy or sell.</p></details>
     <details><summary>How much will it cost?</summary><p>Pricing isn’t set yet. People on the waitlist hear first.</p></details>
     <details><summary>iPhone or Android?</summary><p>Pick your phone when you join. It tells us which one to build first.</p></details>
@@ -385,39 +425,74 @@
       em: "🐣", name: "Total beginner", short: "Beginner", says: "“Money talk goes over my head.”",
       words: ["Interest", "Budget", "Credit score"],
       path: [["💵", "What money is for", "Earning, saving, spending"], ["🏦", "Banks and interest", "Why your bank pays you"], ["💳", "Debt and credit scores", "What a loan really costs"], ["🧾", "Your first budget", "Where the money goes"], ["📈", "What a stock is", "Owning a piece of a company"]],
-      q: { word: "Interest", text: "You borrow $1,000. A year later the bank wants $1,050 back. What is the extra $50 called?",
-           opts: ["Interest", "A dividend", "A tax", "Profit"], right: 0,
-           why: "Interest is the price of borrowing money. Here it’s $50 ÷ $1,000 = 5% a year." },
+      qs: [
+        { word: "Interest", text: "You borrow $1,000. A year later the bank wants $1,050 back. What is the extra $50 called?",
+          opts: ["Interest", "A dividend", "A tax", "Profit"], right: 0,
+          why: "Interest is the price of borrowing money. Here it’s $50 ÷ $1,000 = 5% a year." },
+        { word: "Inflation", text: "Your savings earn 4% a year. Prices go up 3% a year. How much richer do you really get each year?",
+          opts: ["About 1%", "4%", "7%", "Nothing. You lose 3%."], right: 0,
+          why: "Inflation means prices rise, so each dollar buys less. Your real gain is about 4% − 3% = 1% a year." },
+      ],
     },
     starting: {
       em: "🌱", name: "Getting started", short: "Starting out", says: "“I have a 401(k), but I don’t know what’s in it.”",
       words: ["Index fund", "Compound growth", "401(k) match"],
       path: [["🧾", "Your paycheck, line by line", "Gross pay, taxes, take-home"], ["🏖️", "401(k) and IRA", "Retirement accounts"], ["🧺", "Index funds", "Buying a bit of everything"], ["❄️", "Compound growth", "Growth on your growth"], ["💸", "Fees that add up", "1% sounds small"]],
-      q: { word: "Compound growth", text: "You put in $1,000. It grows 10% in year one, to $1,100. It grows 10% again in year two. How much do you have now?",
-           opts: ["$1,200", "$1,210", "$1,100", "$1,300"], right: 1,
-           why: "You earn growth on last year’s growth too. $1,100 × 1.10 = $1,210. That extra $10 is compounding." },
+      qs: [
+        { word: "Compound growth", text: "You put in $1,000. It grows 10% in year one, to $1,100. It grows 10% again in year two. How much do you have now?",
+          opts: ["$1,200", "$1,210", "$1,100", "$1,300"], right: 1,
+          why: "You earn growth on last year’s growth too. $1,100 × 1.10 = $1,210. That extra $10 is compounding." },
+        { word: "Expense ratio", text: "Your index fund charges a 0.05% yearly fee. That fee is called its expense ratio. You have $10,000 in it. What do you pay each year?",
+          opts: ["$5", "$50", "$500", "50 cents"], right: 0,
+          why: "0.05% × $10,000 = $5 a year. A 1% fee on the same money would be $100 a year, 20 times more." },
+      ],
     },
     confident: {
       em: "📈", name: "Confident", short: "Confident", says: "“I invest a little and read the money news.”",
       words: ["Margin", "P/E ratio", "Bond yield"],
       path: [["🏪", "Revenue, profit and margin", "How a business keeps score"], ["📰", "Reading earnings news", "What “beat estimates” means"], ["🏷️", "The P/E ratio", "Is a stock cheap or pricey?"], ["🏛️", "Bonds and interest rates", "Why prices and rates move"], ["🎈", "Inflation and the Fed", "Why prices rise"]],
-      q: { word: "P/E ratio", text: "A share costs $50. The company makes $5 of profit per share each year. What is its P/E ratio?",
-           opts: ["5", "10", "50", "250"], right: 1,
-           why: "P/E means price ÷ earnings (profit) per share. $50 ÷ $5 = 10. You pay $10 for every $1 of yearly profit." },
+      qs: [
+        { word: "P/E ratio", text: "A share costs $50. The company makes $5 of profit per share each year. What is its P/E ratio?",
+          opts: ["5", "10", "50", "250"], right: 1,
+          why: "P/E means price ÷ earnings (profit) per share. $50 ÷ $5 = 10. You pay $10 for every $1 of yearly profit." },
+        { word: "Rule of 72", text: "You buy a house for $250,000 and sell it for $500,000 ten years later. About what yearly return did you earn?",
+          opts: ["About 7.2%", "10%", "20%", "100%"], right: 0,
+          why: "Rule of 72: 72 ÷ years to double ≈ yearly return. 72 ÷ 10 = 7.2%. Exact math: ($500k ÷ $250k)^(1/10) − 1 ≈ 7.2%." },
+      ],
     },
     pro: {
-      em: "💼", name: "Going pro", short: "Going pro", says: "“I want a career in finance.”",
-      words: ["EBITDA", "Enterprise value", "DCF"],
-      path: [["📑", "The 3 financial statements", "Income, balance sheet, cash"], ["⚙️", "EBITDA and free cash flow", "Profit vs. real cash"], ["🏢", "Enterprise value", "The price of the whole business"], ["🔮", "DCF valuation", "What future cash is worth today"], ["🎤", "Interview-ready answers", "Walk me through a DCF"]],
-      q: { word: "Enterprise value", text: "All of a company’s shares are worth $800 million. It owes $300 million and has $100 million in cash. What is its enterprise value?",
-           opts: ["$1.0 billion", "$1.2 billion", "$600 million", "$800 million"], right: 0,
-           why: "Enterprise value is the price of the whole business: the shares, plus the debt you take on, minus the cash you get. $800M + $300M − $100M = $1.0 billion." },
+      em: "💼", name: "Work in finance", short: "Work in finance", says: "“I want a career in finance.”",
+      words: ["Unit economics", "Moat", "IRR"],
+      // The six questions every good stock pitch answers (Ideas with Akshay, "What I Learned From 6,000 Pages of Stock Pitches")
+      path: [["🎯", "What problem does it solve?", "Why customers pay"], ["⚙️", "How does it make money?", "Unit economics, margins, return on capital"], ["🏰", "Can it keep rivals out?", "Scale, network effects, switching costs"], ["📏", "How big can it get?", "Market size and market share"], ["📊", "What return can you expect?", "Cash yield + growth + change in valuation"], ["🎲", "Is the reward worth the risk?", "Scenarios and position sizing"]],
+      // Harder questions, taken from the Ideas with Akshay posts: "How to think about any business" and "The Napkin Method"
+      qs: [
+        { word: "Network effect", text: "Every new cardholder makes Visa more useful to shops. Every new shop makes it more useful to cardholders. What keeps rivals out?",
+          opts: ["A network effect", "Switching costs", "A brand", "Scale"], right: 0,
+          why: "A network effect means the product gets better as more people use it. A new card network starts with zero shops and zero cardholders, so it is very hard to catch up." },
+        { word: "Cyclical stock", text: "Car sales rise and fall with the economy. A carmaker just made record profit, and its stock looks cheap next to that profit. What type of stock is it?",
+          opts: ["A cyclical", "A stalwart", "A fast grower", "An asset play"], right: 0,
+          why: "A cyclical’s profit rises and falls with the economy. Record profit often comes near the top of the cycle, so a “cheap” stock can be a trap. It’s one of Peter Lynch’s six stock types." },
+        { word: "Return on invested capital (ROIC)", text: "A store keeps 3 cents of after-tax profit on every $1 of sales. Each $1 invested in the store brings in $5 of sales a year. What is its ROIC?",
+          opts: ["15%", "3%", "8%", "60%"], right: 0,
+          why: "ROIC = profit margin × capital turnover. 3% × 5 = 15%. Costco works this way: a thin margin, but huge sales for the money put in." },
+        { word: "Napkin math: growth", text: "A company puts 25% of its profit back into the business. It earns 30% on that money. About how fast do its earnings grow each year?",
+          opts: ["7.5%", "25%", "30%", "55%"], right: 0,
+          why: "Growth ≈ share of profit reinvested × return on that money. 25% × 30% = 7.5% a year." },
+        { word: "Napkin math: yearly return (IRR)", text: "A stock pays a 3% dividend. Its earnings grow 7.5% a year. Its P/E is expected to fall from 25 to 15 over 5 years, about −9.7% a year. What is the rough yearly return?",
+          opts: ["About 0.8%", "About 10.5%", "About 20%", "About −9.7%"], right: 0,
+          why: "Yearly return ≈ dividend yield + earnings growth + change in P/E. 3% + 7.5% − 9.7% = 0.8%. A great business bought at too high a price can still be a bad investment." },
+        { word: "Cheap vs. good", text: "Company A: 15× earnings. Reinvests 40% of profit at a 30% return. P/E stays at 15.\nCompany B: 5× earnings. Pays out all its profit. Profit shrinks 5% a year. P/E falls to 3 over 10 years.\nWhich earns more per year?",
+          opts: ["Company A", "Company B"], right: 0,
+          why: "A: 4% dividend yield + 12% growth (40% × 30%) + 0% P/E change ≈ 16% a year. B: 20% yield − 5% shrinking profit − 5% P/E drop ≈ 10% a year. The “cheap” one earns less." },
+      ],
     },
   };
   const ORDER = ["beginner", "starting", "confident", "pro"];
   const $ = id => document.getElementById(id);
   let level = null;           // what the visitor picked (null until they pick)
   let shown = "starting";     // which level the lesson phone is showing
+  let qi = 0;                 // which question of the level is showing
   let answered = false, loggedLesson = false;
 
   // ---- logging to the Google Sheet (same form as the Pause/Pact/Rise/Unplug pages) ----
@@ -455,7 +530,7 @@
   function drawPath(k) {
     const L = LEVELS[k];
     $("pathEm").textContent = L.em; $("pathName").textContent = L.name;
-    const shift = [0, 46, 72, 46, 0];
+    const shift = [0, 46, 72, 46, 0, 46];
     $("pathNodes").innerHTML = L.path.map(([em, t, s], i) =>
       `<div class="node${i === 0 ? " now" : ""}" style="margin-left:${shift[i]}px"><div class="dot">${em}</div><div class="lbl">${t}<small>${s}</small></div></div>`).join("");
     document.querySelectorAll(".lv").forEach(b => b.classList.toggle("on", b.dataset.level === k));
@@ -465,26 +540,26 @@
     if (fromUser) level = k;
     document.querySelectorAll(`.levels-pick input[value="${k}"]`).forEach(r => r.checked = true);
     drawPath(k);
-    if (k !== shown || !answered) { shown = k; drawLesson(); }
+    if (k !== shown) { shown = k; qi = 0; drawLesson(); }
   }
 
   // ---- the live lesson in the phone ----
   function drawLesson() {
-    const L = LEVELS[shown], Q = L.q;
+    const L = LEVELS[shown], Q = L.qs[qi], n = L.qs.length;
     answered = false;
     $("lessonBody").style.display = ""; $("endcard").style.display = "none";
     $("sheet").className = "sheet";
-    $("lessonTag").textContent = "New word · " + L.name;
+    $("lessonTag").textContent = `${qi + 1} of ${n} · ${L.name}`;
     $("lessonWord").textContent = Q.word;
     $("lessonQ").textContent = Q.text;
-    $("lessonBar").style.width = (25 + ORDER.indexOf(shown) * 15) + "%";
+    $("lessonBar").style.width = Math.max(6, (qi / n) * 100) + "%";
     $("lessonOpts").className = "opts";
     $("lessonOpts").innerHTML = Q.opts.map((o, i) => `<button class="opt" type="button" data-i="${i}">${o}</button>`).join("");
   }
   $("lessonOpts").addEventListener("click", e => {
     const b = e.target.closest(".opt"); if (!b || answered) return;
     answered = true;
-    const Q = LEVELS[shown].q, i = +b.dataset.i, ok = i === Q.right;
+    const L = LEVELS[shown], Q = L.qs[qi], i = +b.dataset.i, ok = i === Q.right;
     $("lessonOpts").classList.add("done");
     b.classList.add(ok ? "right" : "wrong");
     if (!ok) $("lessonOpts").children[Q.right].classList.add("right");
@@ -492,15 +567,19 @@
     $("sheetWhy").textContent = Q.why;
     $("sheet").className = "sheet show" + (ok ? "" : " bad");
     if (ok) { const x = $("xp"); x.classList.remove("pop"); void x.offsetWidth; x.classList.add("pop"); }
-    $("lessonBar").style.width = "100%";
+    $("lessonBar").style.width = ((qi + 1) / L.qs.length) * 100 + "%";
     if (!loggedLesson) { loggedLesson = true; send("lesson", { where: shown + ":" + (ok ? "right" : "wrong"), level: shown }); }
   });
   $("sheetNext").addEventListener("click", () => {
     $("sheet").classList.remove("show");
+    const n = LEVELS[shown].qs.length;
+    if (qi + 1 < n) { qi++; drawLesson(); return; }
+    $("endTitle").textContent = n + " words down.";
     $("lessonBody").style.display = "none"; $("endcard").style.display = "flex";
+    send("lesson", { where: shown + ":done", level: shown });
   });
   $("tryNext").addEventListener("click", () => {
-    shown = ORDER[(ORDER.indexOf(shown) + 1) % ORDER.length];
+    shown = ORDER[(ORDER.indexOf(shown) + 1) % ORDER.length]; qi = 0;
     $("tryNext").textContent = shown === "pro" ? "Back to the start" : "Try a harder one";
     drawLesson(); drawPath(shown);
   });
@@ -524,13 +603,131 @@
   });
   function share() {
     const url = location.origin + location.pathname;
-    const text = "Duolingo-style lessons for finance words. I just joined the waitlist.";
+    const text = "Bite-sized lessons for finance words. I just joined the waitlist.";
     send("share", { where: "thanks" });
     if (navigator.share) { navigator.share({ title: "Finspeak", text, url }).catch(() => {}); return; }
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
       () => document.querySelectorAll(".share").forEach(b => b.textContent = "Link copied ✓"),
       () => prompt("Copy this link:", url));
   }
+
+  // ---- fee chart: $200,000 at 7% vs 6% a year for 30 years ----
+  (function feeChart() {
+    const plot = $("feeChart"), tip = $("feeTip"), NS = "http://www.w3.org/2000/svg";
+    const START = 200000, YEARS = 30, MAXY = 1600000;
+    const rows = Array.from({ length: YEARS + 1 }, (_, y) => ({ y, a: START * 1.07 ** y, b: START * 1.06 ** y }));
+    const money = n => "$" + Math.round(n).toLocaleString("en-US");
+    const tick = v => v === 0 ? "$0" : v >= 1e6 ? "$" + v / 1e6 + "M" : "$" + v / 1e3 + "K";
+    const lost = r => Math.round(r.a) - Math.round(r.b);
+    const C = { a: "#12B76A", b: "#4C7DFF", gap: "rgba(229,72,77,.16)", bracket: "#E5484D", grid: "#ECEAE3", base: "#D6D3C9", text: "rgba(15,26,20,.58)", ink: "#0F1A14" };
+    let geo = null, svg = null, hover = null;
+
+    function el(name, attrs, parent, text) {
+      const n = document.createElementNS(NS, name);
+      for (const k in attrs) n.setAttribute(k, attrs[k]);
+      if (text != null) n.textContent = text;
+      (parent || svg).appendChild(n);
+      return n;
+    }
+
+    function draw() {
+      const W = plot.clientWidth; if (!W) return;
+      const small = W < 520, H = small ? 270 : 340;
+      const m = { l: small ? 40 : 54, r: small ? 62 : 112, t: 14, b: 30 };
+      const pw = W - m.l - m.r, ph = H - m.t - m.b;
+      const x = y => m.l + (y / YEARS) * pw, yv = v => m.t + ph - (v / MAXY) * ph;
+      geo = { x, yv, m, pw, ph, W, H };
+      if (svg) svg.remove();
+      svg = document.createElementNS(NS, "svg");
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("height", H); svg.setAttribute("aria-hidden", "true");
+      plot.insertBefore(svg, tip);
+      const txt = { "font-family": "Inter, system-ui, sans-serif", "font-size": 12, fill: C.text };
+
+      // y grid + ticks
+      for (let v = 0; v <= MAXY; v += 400000) {
+        el("line", { x1: m.l, x2: m.l + pw, y1: yv(v), y2: yv(v), stroke: v === 0 ? C.base : C.grid, "stroke-width": 1 });
+        el("text", { ...txt, x: m.l - 8, y: yv(v) + 4, "text-anchor": "end" }, null, tick(v));
+      }
+      // x ticks
+      for (let y = 0; y <= YEARS; y += small ? 10 : 5)
+        el("text", { ...txt, x: x(y), y: H - 8, "text-anchor": y === 0 ? "start" : y === YEARS ? "end" : "middle" }, null, small ? (y === YEARS ? "30 yrs" : String(y)) : (y === 0 || y === YEARS ? "Year " + y : String(y)));
+
+      // the gap between the lines = money lost to fees
+      const top = rows.map(r => `${x(r.y)},${yv(r.a)}`), bottom = rows.slice().reverse().map(r => `${x(r.y)},${yv(r.b)}`);
+      el("polygon", { points: top.concat(bottom).join(" "), fill: C.gap });
+      el("polyline", { points: rows.map(r => `${x(r.y)},${yv(r.b)}`).join(" "), fill: "none", stroke: C.b, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" });
+      el("polyline", { points: top.join(" "), fill: "none", stroke: C.a, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" });
+
+      // end labels at year 30, with a bracket over the gap
+      const end = rows[YEARS], ex = x(YEARS), ya = yv(end.a), yb = yv(end.b), lx = ex + 18;
+      const lab = small ? (v => v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1e3) + "K") : money;
+      el("line", { x1: ex + 9, x2: ex + 9, y1: ya + 6, y2: yb - 6, stroke: C.bracket, "stroke-width": 2, "stroke-linecap": "round" });
+      el("text", { ...txt, x: lx, y: ya + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, lab(end.a));
+      el("text", { ...txt, x: lx, y: (ya + yb) / 2 + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, "−" + lab(lost(end)));
+      el("text", { ...txt, x: lx, y: yb + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, lab(end.b));
+      el("circle", { cx: ex, cy: ya, r: 4.5, fill: C.a, stroke: "#fff", "stroke-width": 2 });
+      el("circle", { cx: ex, cy: yb, r: 4.5, fill: C.b, stroke: "#fff", "stroke-width": 2 });
+
+      // hover layer (crosshair + dots), drawn on demand
+      hover = el("g", { opacity: 0 });
+      hover.line = el("line", { y1: m.t, y2: m.t + ph, stroke: "rgba(15,26,20,.35)", "stroke-width": 1 }, hover);
+      hover.da = el("circle", { r: 4.5, fill: C.a, stroke: "#fff", "stroke-width": 2 }, hover);
+      hover.db = el("circle", { r: 4.5, fill: C.b, stroke: "#fff", "stroke-width": 2 }, hover);
+    }
+
+    function row(parent, keyClass, keyColor, value, label) {
+      const r = document.createElement("div"); r.className = "r";
+      const k = document.createElement("i"); k.className = "k" + (keyClass ? " " + keyClass : ""); if (keyColor) k.style.background = keyColor;
+      const b = document.createElement("b"); b.textContent = value;
+      const s = document.createElement("span"); s.textContent = label;
+      r.append(k, b, s); parent.appendChild(r);
+    }
+
+    function show(year) {
+      if (!geo) return;
+      const r = rows[year], { x, yv, W } = geo, px = x(year);
+      hover.setAttribute("opacity", 1);
+      hover.line.setAttribute("x1", px); hover.line.setAttribute("x2", px);
+      hover.da.setAttribute("cx", px); hover.da.setAttribute("cy", yv(r.a));
+      hover.db.setAttribute("cx", px); hover.db.setAttribute("cy", yv(r.b));
+      tip.replaceChildren();
+      const t = document.createElement("div"); t.className = "t"; t.textContent = "After " + year + (year === 1 ? " year" : " years"); tip.appendChild(t);
+      row(tip, "", C.a, money(r.a), "No fee");
+      row(tip, "", C.b, money(r.b), "1% fee");
+      row(tip, "area", "", money(lost(r)), "Lost to fees");
+      tip.hidden = false;
+      const tw = tip.offsetWidth, left = px + 14 + tw > W ? px - 14 - tw : px + 14;
+      tip.style.left = Math.max(0, left) + "px";
+      plot.dataset.year = year;
+    }
+    function hide() { if (hover) hover.setAttribute("opacity", 0); tip.hidden = true; }
+    function yearAt(clientX) {
+      const box = plot.getBoundingClientRect(), { m, pw } = geo;
+      return Math.max(0, Math.min(YEARS, Math.round(((clientX - box.left - m.l) / pw) * YEARS)));
+    }
+
+    plot.addEventListener("pointermove", e => show(yearAt(e.clientX)));
+    plot.addEventListener("pointerdown", e => show(yearAt(e.clientX)));
+    plot.addEventListener("pointerleave", hide);
+    plot.addEventListener("focus", () => show(+plot.dataset.year || YEARS));
+    plot.addEventListener("blur", hide);
+    plot.addEventListener("keydown", e => {
+      const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!step) return;
+      e.preventDefault(); show(Math.max(0, Math.min(YEARS, (+plot.dataset.year || YEARS) + step)));
+    });
+
+    // table view: every 5 years
+    const tb = $("feeTable");
+    rows.filter(r => r.y % 5 === 0).forEach(r => {
+      const tr = document.createElement("tr");
+      [String(r.y), money(r.a), money(r.b), money(lost(r))].forEach(v => { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+      tb.appendChild(tr);
+    });
+
+    draw();
+    if (window.ResizeObserver) new ResizeObserver(() => { hide(); draw(); }).observe(plot);
+    else addEventListener("resize", () => { hide(); draw(); });
+  })();
 
   drawPath("starting"); drawLesson();
 })();
