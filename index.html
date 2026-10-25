@@ -218,6 +218,24 @@
   .tableview th { font:800 13px Nunito,sans-serif; color:var(--sub); }
   .note { margin-top:18px; color:var(--sub); font-size:14px; max-width:760px; }
 
+  .flip { margin-top:30px; display:grid; grid-template-columns:1fr 1fr; border-radius:26px; overflow:hidden; border:2px solid var(--line); background:var(--surface); }
+  .flip > div { padding:22px 24px; }
+  .flip-head, .flip-foot { grid-column:1 / -1; }
+  .flip-head { padding-bottom:4px !important; }
+  .flip-head h3 { font-size:clamp(24px,3vw,30px); }
+  .flip .pay { background:#FFF6F6; border-right:1px solid var(--line); }
+  .flip .earn { background:#F1FBF5; }
+  .flip .lab { font:900 12px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+  .flip .pay .lab { color:var(--red-dark); }
+  .flip .earn .lab { color:var(--g-dark); }
+  .flip .big { font:900 clamp(28px,3.4vw,38px) Nunito,sans-serif; letter-spacing:-.02em; margin-bottom:4px; }
+  .flip p { color:var(--sub); }
+  .flip .how { display:block; margin-top:6px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; }
+  .flip-foot { display:flex; align-items:center; justify-content:space-between; gap:14px 20px; flex-wrap:wrap; border-top:1px solid var(--line); }
+  .flip-foot b { font:800 18px/1.3 Nunito,sans-serif; max-width:560px; }
+  .flip-foot .btn { height:48px; font-size:16px; }
+  .card .e { font-size:30px; width:58px; height:58px; border-radius:18px; background:var(--surface2); display:grid; place-items:center; margin-bottom:14px; }
+
   /* faq */
   .faq { margin-top:36px; display:grid; gap:12px; max-width:800px; }
   details { background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:18px 22px; }
@@ -240,6 +258,8 @@
     .lv-grid, .steps, .math, .feats { grid-template-columns:1fr; }
     .swap { grid-template-columns:1fr; }
     .sliders { grid-template-columns:1fr 1fr; }
+    .flip { grid-template-columns:1fr; }
+    .flip .pay { border-right:0; border-bottom:1px solid var(--line); }
     section { padding:64px 0; }
   }
   @media (max-width:520px) {
@@ -396,6 +416,23 @@
     </details>
   </div>
   <p class="note">Example numbers. Growth is an assumption, not a promise. Real markets go up and down. To keep the math simple, a 1% fee is counted as 1% less growth each year. Finspeak teaches what words mean. It is not investment advice.</p>
+  <div class="flip">
+    <div class="flip-head"><h3>A fee can cost you money. Or make you money.</h3></div>
+    <div class="pay"><div class="lab">💸 When you pay it</div><div class="big">$2,000 a year</div><p>A 1% fee on $200,000, out of your pocket.<span class="how">1% × $200,000 = $2,000</span></p></div>
+    <div class="earn"><div class="lab">💰 When you earn it</div><div class="big">$1,000,000 a year</div><p>A firm that manages $100 million at 1% takes in this much.<span class="how">1% × $100,000,000 = $1,000,000</span></p></div>
+    <div class="flip-foot"><b>Go from Beginner to Work in finance, and you can end up on the earning side.</b><button class="btn" type="button" id="toPro">See that path</button></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Not just for finance people</div>
+  <h2>Everyone is an investor.</h2>
+  <p class="sub">Most people just don’t know it yet. You put your money, your time and your skills somewhere, and hope they grow.</p>
+  <div class="steps">
+    <div class="card"><div class="e">🏪</div><h3>Not just stocks</h3><p>Buying a small business or a mobile app uses the same math. An app that earns $50,000 a year and sells for $150,000 is like a stock at 3 times earnings.</p></div>
+    <div class="card"><div class="e">🏢</div><h3>The company you work for</h3><p>It runs on these words. Learn them and you’ll see how it really makes money, and why the margin moved last quarter.</p></div>
+    <div class="card"><div class="e">🚀</div><h3>Your next promotion</h3><p>Show the value you create in dollars. “I saved us $80,000 a year” beats “I worked really hard.”</p></div>
+  </div>
 </div></section>
 
 <section><div class="wrap">
@@ -403,6 +440,7 @@
   <h2>Good questions.</h2>
   <div class="faq">
     <details><summary>Who is Finspeak for?</summary><p>Anyone who feels lost when the money talk starts. Total beginners, people with a 401(k) they don’t understand, and students aiming for a finance job. You pick your level when you start.</p></details>
+    <details><summary>I don’t work in finance. Is this for me?</summary><p>Yes. The company you work for runs on these words. Learn them and you can see how it makes money, and show the value you create in dollars.</p></details>
     <details><summary>I’m a total beginner. Is that OK?</summary><p>Yes. The first level starts at “what is interest?” Nothing is assumed. Every word is explained in plain English with a real example.</p></details>
     <details><summary>I want a job in finance. Is it too basic for me?</summary><p>No. The “Work in finance” level teaches how investors size up a business. You learn the six questions every good stock pitch answers, Peter Lynch’s six types of stock, and what keeps rivals out, like scale, network effects and switching costs. Then the napkin math: return on invested capital (ROIC), and a rough yearly return (IRR) in five minutes.</p></details>
     <details><summary>Is this investment advice?</summary><p>No. Finspeak teaches what finance words mean. It never tells you what to buy or sell.</p></details>
@@ -473,6 +511,9 @@
         { word: "Rule of 72", text: "You buy a house for $250,000 and sell it for $500,000 ten years later. About what yearly return did you earn?",
           opts: ["About 7.2%", "10%", "20%", "100%"], right: 0,
           why: "Rule of 72: 72 ÷ years to double ≈ yearly return. 72 ÷ 10 = 7.2%. Exact math: ($500k ÷ $250k)^(1/10) − 1 ≈ 7.2%." },
+        { word: "Buying a business", text: "You can buy a mobile app for $150,000. It makes $50,000 of profit a year. If profit stays flat, what yearly return is that?",
+          opts: ["About 33%", "About 3%", "About 15%", "About 50%"], right: 0,
+          why: "$50,000 ÷ $150,000 ≈ 33% a year. You paid 3 times profit, like a stock with a P/E of 3. The same math works for a stock, a shop or an app." },
       ],
     },
     pro: {
@@ -597,6 +638,12 @@
     shown = ORDER[(ORDER.indexOf(shown) + 1) % ORDER.length]; qi = 0;
     $("tryNext").textContent = shown === "pro" ? "Back to the start" : "Try a harder one";
     drawLesson(); drawPath(shown);
+  });
+
+  $("toPro").addEventListener("click", () => {
+    drawPath("pro");
+    if (shown !== "pro") { shown = "pro"; qi = 0; drawLesson(); }
+    $("levels").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   // ---- signup ----
