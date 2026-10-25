@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finspeak: Learn to Speak Finance</title>
+<meta name="description" content="Duolingo-style lessons for the words money people use. Plain English, 5 minutes a day, built for your level.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Finspeak: Learn to Speak Finance">
+<meta property="og:description" content="Duolingo-style lessons for the words money people use. 5 minutes a day, built for your level. Join the waitlist.">
+<meta property="og:url" content="https://ideaswithakshay.github.io/finspeak-site/">
+<meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
+<link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#FBFAF6; --surface:#FFFFFF; --surface2:#F1F5EE; --ink:#0F1A14; --sub:rgba(15,26,20,.62); --line:#E6E4DC;
+    --g:#12B76A; --g-dark:#0A8A4E; --g-soft:#E2F6EB; --gold:#FFB020; --gold-dark:#D98E00;
+    --red:#E5484D; --red-dark:#B8343A; --red-soft:#FDECEC; --blue:#4C7DFF;
+    --night:#0C1310; --night2:#151F1A; --night-ink:#EAF2EC; --night-sub:rgba(234,242,236,.62);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font:17px/1.55 Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  h1,h2,h3,h4 { font-family:Nunito,ui-rounded,system-ui,sans-serif; font-weight:900; letter-spacing:-.02em; line-height:1.08; }
+  a { color:inherit; }
+  button { font:inherit; color:inherit; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 20px; }
+  .glow { position:absolute; inset:-220px 0 auto; height:760px; pointer-events:none; z-index:0;
+          background:radial-gradient(520px 340px at 72% 38%, rgba(18,183,106,.20), transparent 70%), radial-gradient(420px 300px at 18% 20%, rgba(255,176,32,.14), transparent 70%); }
+
+  /* nav */
+  nav.top { display:flex; align-items:center; justify-content:space-between; padding:20px 0; position:relative; z-index:2; }
+  .brand { display:flex; gap:10px; align-items:center; font:900 23px Nunito,sans-serif; text-decoration:none; }
+  .brand img { width:36px; height:36px; border-radius:10px; }
+  .brand span { color:var(--g); }
+  .nav-cta { font-weight:600; font-size:15px; text-decoration:none; padding:9px 16px; border-radius:99px; background:var(--surface); border:1px solid var(--line); }
+
+  /* buttons: chunky, like Duolingo */
+  .btn { height:56px; padding:0 26px; border:0; border-radius:16px; background:var(--g); color:#fff; font:900 17px Nunito,sans-serif;
+         letter-spacing:.01em; cursor:pointer; box-shadow:0 4px 0 var(--g-dark); white-space:nowrap; transition:transform .06s, box-shadow .06s; }
+  .btn:active { transform:translateY(4px); box-shadow:0 0 0 var(--g-dark); }
+  .btn.gold { background:var(--gold); color:#3A2600; box-shadow:0 4px 0 var(--gold-dark); }
+
+  /* hero */
+  .hero > div { min-width:0; }
+  .hero { position:relative; z-index:1; padding:30px 0 80px; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; }
+  .pill { display:inline-flex; gap:8px; align-items:center; font-size:14px; font-weight:600; padding:7px 14px; border-radius:99px;
+          background:var(--surface); border:1px solid var(--line); color:var(--sub); margin-bottom:22px; }
+  .hero h1 { font-size:clamp(46px,7.2vw,82px); }
+  .hl { color:var(--g); position:relative; white-space:nowrap; }
+  .hl::after { content:""; position:absolute; left:2%; right:2%; bottom:.04em; height:.16em; background:var(--gold); border-radius:99px; z-index:-1; opacity:.85; }
+  .lead { font-size:20px; color:var(--sub); margin:22px 0 28px; max-width:540px; }
+
+  /* waitlist form */
+  form.waitlist { display:flex; flex-direction:column; gap:14px; max-width:500px; }
+  .q { font:800 15px Nunito,sans-serif; color:var(--ink); }
+  .levels-pick { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .levels-pick label { cursor:pointer; text-align:center; padding:10px 6px 9px; border-radius:14px; background:var(--surface);
+                       border:2px solid var(--line); box-shadow:0 3px 0 var(--line); font:800 13.5px/1.2 Nunito,sans-serif; transition:transform .06s; }
+  .levels-pick label .em { display:block; font-size:22px; margin-bottom:4px; }
+  .levels-pick input, .phones input { position:absolute; opacity:0; pointer-events:none; }
+  .levels-pick label:has(input:checked) { border-color:var(--g); background:var(--g-soft); box-shadow:0 3px 0 var(--g); color:var(--g-dark); }
+  .levels-pick label:active { transform:translateY(2px); }
+  .row { display:flex; gap:10px; }
+  input[type=email] { flex:1; min-width:0; height:56px; padding:0 18px; border-radius:16px; border:2px solid var(--line); background:var(--surface);
+                      color:var(--ink); font:500 16px Inter,sans-serif; outline:none; }
+  input[type=email]:focus { border-color:var(--g); }
+  .phones { display:flex; gap:8px; font-size:14px; color:var(--sub); align-items:center; flex-wrap:wrap; }
+  .phones label { cursor:pointer; padding:6px 13px; border-radius:99px; background:var(--surface); border:1.5px solid var(--line); }
+  .phones label:has(input:checked) { border-color:var(--g); color:var(--ink); }
+  .fine { font-size:13px; color:var(--sub); }
+  .thanks { display:none; padding:20px 22px; border-radius:20px; background:var(--surface); border:2px solid var(--g); max-width:500px; }
+  .thanks b { font:900 22px Nunito,sans-serif; display:block; margin-bottom:4px; }
+  .thanks .btn { margin-top:14px; height:auto; min-height:48px; padding:12px 22px; font-size:16px; white-space:normal; }
+
+  /* phone with a live lesson */
+  .phone { width:100%; max-width:318px; margin:0 auto; border-radius:50px; padding:11px; background:#0B0F0D; box-shadow:0 34px 70px rgba(15,40,25,.25), 0 0 0 1px rgba(0,0,0,.05); position:relative; }
+  .hero .phone { transform:rotate(2.5deg); }
+  .screen { background:#fff; border-radius:40px; min-height:600px; padding:18px 16px 16px; display:flex; flex-direction:column; position:relative; overflow:hidden; }
+  .notch { width:96px; height:26px; background:#0B0F0D; border-radius:99px; margin:0 auto 14px; }
+  .appbar { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
+  .appbar .x { color:#A9B1AC; font-size:18px; font-weight:700; }
+  .bar { flex:1; height:14px; border-radius:99px; background:#E9ECEA; overflow:hidden; }
+  .bar i { display:block; height:100%; width:40%; background:var(--g); border-radius:99px; transition:width .5s; box-shadow:inset 0 -3px 0 rgba(0,0,0,.12); }
+  .streak { font:900 15px Nunito,sans-serif; color:#FF8A00; }
+  .tag { font:900 12px Nunito,sans-serif; letter-spacing:.08em; color:var(--blue); text-transform:uppercase; margin-bottom:8px; }
+  .word { font:900 28px Nunito,sans-serif; margin-bottom:8px; }
+  .qtext { font-size:15.5px; line-height:1.45; color:#2B3530; margin-bottom:16px; }
+  .opts { display:grid; gap:9px; }
+  .opt { text-align:left; padding:12px 14px; border-radius:14px; background:#fff; border:2px solid #E5E7E6; box-shadow:0 3px 0 #E5E7E6;
+         font:800 15px Nunito,sans-serif; cursor:pointer; transition:transform .06s; }
+  .opt:active { transform:translateY(2px); }
+  .opt.right { border-color:var(--g); background:var(--g-soft); box-shadow:0 3px 0 var(--g); color:var(--g-dark); }
+  .opt.wrong { border-color:var(--red); background:var(--red-soft); box-shadow:0 3px 0 var(--red); color:var(--red-dark); }
+  .opts.done .opt { cursor:default; }
+  .sheet { position:absolute; left:0; right:0; bottom:0; padding:18px 18px 20px; background:var(--g-soft); transform:translateY(105%); transition:transform .28s ease; }
+  .sheet.show { transform:none; }
+  .sheet.bad { background:var(--red-soft); }
+  .sheet h5 { font:900 21px Nunito,sans-serif; color:var(--g-dark); margin-bottom:4px; }
+  .sheet.bad h5 { color:var(--red-dark); }
+  .sheet p { font-size:14px; line-height:1.45; color:#25302A; margin-bottom:12px; }
+  .sheet .btn { width:100%; height:48px; font-size:16px; }
+  .sheet.bad .btn { background:var(--red); box-shadow:0 4px 0 var(--red-dark); }
+  .endcard { display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:10px; padding:10px 6px 20px; }
+  .endcard .big { font-size:64px; }
+  .endcard h4 { font-size:26px; }
+  .endcard p { font-size:15px; color:#4A544F; }
+  .endcard .btn { width:100%; margin-top:8px; }
+  .endcard button.link { background:none; border:0; color:var(--blue); font:800 15px Nunito,sans-serif; cursor:pointer; padding:8px; }
+  .xp { position:absolute; top:76px; right:18px; font:900 18px Nunito,sans-serif; color:var(--gold-dark); opacity:0; }
+  .xp.pop { animation:pop 1s ease forwards; }
+  @keyframes pop { 0%{opacity:0; transform:translateY(8px)} 25%{opacity:1; transform:none} 75%{opacity:1} 100%{opacity:0; transform:translateY(-14px)} }
+  .tryme { text-align:center; margin-top:18px; font:800 14px Nunito,sans-serif; color:var(--sub); }
+
+  /* sections */
+  section { padding:90px 0; position:relative; }
+  .eyebrow { color:var(--g); font:900 14px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:12px; }
+  h2 { font-size:clamp(34px,5vw,54px); margin-bottom:16px; }
+  .sub { color:var(--sub); font-size:19px; max-width:640px; }
+
+  /* levels + path */
+  .lv-grid { display:grid; grid-template-columns:1.15fr .85fr; gap:28px; margin-top:44px; align-items:start; }
+  .lv-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .lv { display:flex; flex-direction:column; align-items:flex-start; text-align:left; cursor:pointer; background:var(--surface); border:2px solid var(--line); box-shadow:0 4px 0 var(--line); border-radius:22px; padding:20px; transition:transform .06s; }
+  .lv:active { transform:translateY(3px); }
+  .lv.on { border-color:var(--g); box-shadow:0 4px 0 var(--g); background:#FBFFFC; }
+  .lv .em { font-size:34px; }
+  .lv .step { font:900 12px Nunito,sans-serif; letter-spacing:.08em; color:var(--sub); text-transform:uppercase; margin-top:8px; }
+  .lv h3 { font-size:23px; margin:2px 0 6px; }
+  .lv .says { font-size:15px; color:var(--sub); font-style:italic; margin-bottom:12px; }
+  .chips { display:flex; flex-wrap:wrap; gap:6px; }
+  .chip { font:800 12.5px Nunito,sans-serif; padding:4px 10px; border-radius:99px; background:var(--surface2); color:#38443D; }
+  .lv.on .chip { background:var(--g-soft); color:var(--g-dark); }
+  .path { background:var(--surface); border:2px solid var(--line); border-radius:28px; padding:24px 22px 26px; }
+  .path-head { display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:18px; background:var(--g); color:#fff; box-shadow:0 4px 0 var(--g-dark); margin-bottom:26px; }
+  .path-head small { display:block; font:900 12px Nunito,sans-serif; letter-spacing:.08em; opacity:.8; text-transform:uppercase; }
+  .path-head b { font:900 20px Nunito,sans-serif; }
+  .nodes { display:flex; flex-direction:column; gap:20px; }
+  .node { display:flex; align-items:center; gap:16px; }
+  .node .dot { width:64px; height:58px; border-radius:50%; display:grid; place-items:center; font-size:26px; flex:none; background:#E5E7E6; box-shadow:0 6px 0 #CDD1CF; position:relative; }
+  .node.now .dot { background:var(--g); box-shadow:0 6px 0 var(--g-dark); }
+  .node.now .dot::before { content:"START"; position:absolute; top:-30px; left:50%; transform:translateX(-50%); font:900 12px Nunito,sans-serif; letter-spacing:.06em;
+                           color:var(--g); background:#fff; border:2px solid var(--line); padding:3px 9px; border-radius:10px; animation:bob 1.6s ease-in-out infinite; }
+  @keyframes bob { 50% { transform:translate(-50%,-4px); } }
+  .node .lbl { font:800 16px Nunito,sans-serif; }
+  .node .lbl small { display:block; font:600 12.5px Inter,sans-serif; color:var(--sub); }
+  .node:not(.now) .lbl { color:#59635D; }
+
+  /* how it works */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
+  .card { background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:26px; }
+  .card .n { width:44px; height:44px; border-radius:14px; background:var(--g); color:#fff; font:900 21px Nunito,sans-serif; display:grid; place-items:center; margin-bottom:16px; box-shadow:0 3px 0 var(--g-dark); }
+  .card h3 { font-size:23px; margin-bottom:8px; }
+  .card p { color:var(--sub); }
+  .feats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px; }
+  .feat { display:flex; gap:16px; align-items:center; background:var(--surface); border:2px solid var(--line); border-radius:22px; padding:18px; }
+  .feat .e { font-size:30px; width:60px; height:60px; border-radius:18px; background:var(--surface2); display:grid; place-items:center; flex:none; }
+  .feat h3 { font-size:20px; margin-bottom:3px; }
+
+  /* say it like a pro (dark, like Imprint's cards) */
+  .night { background:var(--night); color:var(--night-ink); }
+  .night .eyebrow { color:#3EE08F; }
+  .night .sub { color:var(--night-sub); }
+  .swaps { display:grid; gap:14px; margin-top:44px; }
+  .swap { display:grid; grid-template-columns:1fr 1fr 1.05fr; gap:0; border-radius:22px; overflow:hidden; background:var(--night2); border:1px solid rgba(255,255,255,.07); }
+  .swap > div { padding:18px 20px; }
+  .swap .lab { font:900 11.5px Nunito,sans-serif; letter-spacing:.09em; text-transform:uppercase; margin-bottom:6px; }
+  .swap .no .lab { color:#FF7A85; }
+  .swap .yes .lab { color:#3EE08F; }
+  .swap .why .lab { color:#8FA8FF; }
+  .swap .no p { color:rgba(234,242,236,.55); text-decoration:line-through; text-decoration-color:rgba(255,122,133,.6); font:700 17px Nunito,sans-serif; }
+  .swap .yes { background:rgba(62,224,143,.07); }
+  .swap .yes p { font:800 18px/1.3 Nunito,sans-serif; }
+  .swap .why p { font-size:15px; color:var(--night-sub); }
+
+  /* math */
+  .math { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px; }
+  .math .big { font:900 clamp(34px,4vw,46px) Nunito,sans-serif; letter-spacing:-.02em; color:var(--ink); }
+  .math .card.hot { border-color:var(--red); background:#FFF8F8; }
+  .math .card.hot .big { color:var(--red); }
+  .math .how { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; color:var(--sub); margin-top:8px; display:block; }
+  .note { margin-top:18px; color:var(--sub); font-size:14px; max-width:760px; }
+
+  /* faq */
+  .faq { margin-top:36px; display:grid; gap:12px; max-width:800px; }
+  details { background:var(--surface); border:2px solid var(--line); border-radius:20px; padding:18px 22px; }
+  summary { cursor:pointer; font:800 19px Nunito,sans-serif; list-style:none; display:flex; justify-content:space-between; gap:12px; }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; color:var(--g); font-size:24px; line-height:1; }
+  details[open] summary::after { content:"–"; }
+  details p { color:var(--sub); margin-top:10px; }
+
+  .final { text-align:center; }
+  .final h2 { max-width:760px; margin:0 auto 14px; }
+  .final .sub { margin:0 auto; }
+  .final form.waitlist, .final .thanks { margin:30px auto 0; text-align:left; }
+  footer { padding:36px 0 56px; color:var(--sub); font-size:14px; display:flex; gap:14px 24px; flex-wrap:wrap; justify-content:space-between; border-top:1px solid var(--line); }
+  footer a { margin-left:18px; }
+
+  @media (max-width:900px) {
+    .hero { grid-template-columns:1fr; padding-top:14px; gap:44px; }
+    .hero .phone { transform:none; }
+    .lv-grid, .steps, .math, .feats { grid-template-columns:1fr; }
+    .swap { grid-template-columns:1fr; }
+    section { padding:64px 0; }
+  }
+  @media (max-width:520px) {
+    .wrap { padding:0 16px; }
+    .lead { font-size:18px; }
+    .levels-pick { gap:6px; }
+    .levels-pick label { padding:8px 2px 7px; font-size:12px; border-radius:12px; }
+    .levels-pick label .em { font-size:20px; margin-bottom:2px; }
+    .row { flex-direction:column; }
+    input[type=email] { flex:none; width:100%; }
+    .btn { width:100%; }
+    .lv-cards { gap:10px; }
+    .lv { padding:14px; border-radius:18px; }
+    .lv .em { font-size:28px; }
+    .lv h3 { font-size:18px; }
+    .lv .says { font-size:13px; margin-bottom:0; }
+    .lv .chips { display:none; }
+    .path { padding:20px 16px 22px; }
+    .node .dot { width:56px; height:52px; font-size:23px; }
+    .nav-cta { display:none; }
+    footer a { margin:0 18px 0 0; }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrap">
+  <nav class="top"><a class="brand" href="#"><img src="img/icon.svg" alt=""><b style="font:inherit">Fin<span>speak</span></b></a><a class="nav-cta" href="#join">Join the waitlist</a></nav>
+
+  <header class="hero">
+    <div>
+      <span class="pill">🔥 Like Duolingo, but for money words</span>
+      <h1>Learn to speak <span class="hl">finance.</span></h1>
+      <p class="lead">Bite-sized lessons on the words money people use. Plain English, real examples, 5 minutes a day. Built for your level, from “what’s a stock?” to your first finance job.</p>
+      <form class="waitlist" data-where="hero">
+        <div class="q">Where are you starting?</div>
+        <div class="levels-pick"></div>
+        <div class="row">
+          <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+          <button class="btn" type="submit">Get early access</button>
+        </div>
+        <div class="phones"><span>My phone:</span>
+          <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
+          <label><input type="radio" name="phone" value="android"><span>Android</span></label>
+        </div>
+      </form>
+      <div class="thanks"></div>
+    </div>
+
+    <div>
+      <div class="phone" id="lesson">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="appbar"><span class="x">✕</span><div class="bar"><i id="lessonBar"></i></div><span class="streak">🔥 3</span></div>
+          <div class="xp" id="xp">+10 XP</div>
+          <div id="lessonBody">
+            <div class="tag" id="lessonTag">New word</div>
+            <div class="word" id="lessonWord"></div>
+            <div class="qtext" id="lessonQ"></div>
+            <div class="opts" id="lessonOpts"></div>
+          </div>
+          <div class="endcard" id="endcard">
+            <div class="big">🎉</div>
+            <h4>One word down.</h4>
+            <p>Finspeak teaches a few like this every day, at your level.</p>
+            <a class="btn" href="#join" style="display:grid;place-items:center;text-decoration:none">Get early access</a>
+            <button class="link" type="button" id="tryNext">Try a harder one</button>
+          </div>
+          <div class="sheet" id="sheet">
+            <h5 id="sheetTitle"></h5>
+            <p id="sheetWhy"></p>
+            <button class="btn" type="button" id="sheetNext">Continue</button>
+          </div>
+        </div>
+      </div>
+      <div class="tryme">👆 Try a real lesson. Tap an answer.</div>
+    </div>
+  </header>
+</div>
+
+<section id="levels"><div class="wrap">
+  <div class="eyebrow">Built for your level</div>
+  <h2>Start where you are.</h2>
+  <p class="sub">A 2-minute quiz finds your level. You skip what you already know and start where it gets new. Tap a level to see its path.</p>
+  <div class="lv-grid">
+    <div class="lv-cards" id="lvCards"></div>
+    <div class="path">
+      <div class="path-head"><span style="font-size:28px" id="pathEm"></span><div><small>Your path</small><b id="pathName"></b></div></div>
+      <div class="nodes" id="pathNodes"></div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">How it works</div>
+  <h2>Five minutes a day. That’s it.</h2>
+  <p class="sub">Every lesson is one new word, a real-life example, and a quick question. Like Duolingo, it’s built so you actually come back tomorrow.</p>
+  <div class="steps">
+    <div class="card"><div class="n">1</div><h3>Find your level</h3><p>Answer a few quick questions. Total beginner or future analyst, you start in the right spot.</p></div>
+    <div class="card"><div class="n">2</div><h3>Learn a few words a day</h3><p>Each word is explained in plain English first. Then you see it in a paycheck, a headline, or a job offer.</p></div>
+    <div class="card"><div class="n">3</div><h3>Keep your streak</h3><p>Earn XP and keep your streak alive. The words you miss come back until they stick.</p></div>
+  </div>
+  <div class="feats">
+    <div class="feat"><div class="e">🗣️</div><div><h3>Plain English first</h3><p class="fine">No textbook talk. Every word is explained like you’re 11, with real numbers.</p></div></div>
+    <div class="feat"><div class="e">🔁</div><div><h3>Words come back</h3><p class="fine">Miss a word and it shows up again a few days later, right before you’d forget it.</p></div></div>
+    <div class="feat"><div class="e">🔥</div><div><h3>Streaks and XP</h3><p class="fine">A daily goal of 3, 5 or 10 minutes. Small enough to do on the train.</p></div></div>
+    <div class="feat"><div class="e">💬</div><div><h3>Ask anything</h3><p class="fine">Heard a word on a call or in the news? Ask, and get a plain answer back.</p></div></div>
+  </div>
+</div></section>
+
+<section class="night"><div class="wrap">
+  <div class="eyebrow">Say it like a pro</div>
+  <h2>Stop nodding along.</h2>
+  <p class="sub">Most money talk is just a few dozen words. Learn them and you can follow the meeting, read the offer letter, and ask the right question.</p>
+  <div class="swaps">
+    <div class="swap"><div class="no"><div class="lab">✕ Instead of</div><p>“They make a ton of money.”</p></div><div class="yes"><div class="lab">✓ Say</div><p>“They bring in $2 billion of revenue and keep $200 million as profit.”</p></div><div class="why"><div class="lab">Why</div><p>Revenue is all the money from sales. Profit is what’s left after every cost is paid.</p></div></div>
+    <div class="swap"><div class="no"><div class="lab">✕ Instead of</div><p>“The stock is cheap.”</p></div><div class="yes"><div class="lab">✓ Say</div><p>“It trades at 12 times earnings.”</p></div><div class="why"><div class="lab">Why</div><p>You pay $12 for every $1 of profit the company makes in a year. This is the P/E ratio.</p></div></div>
+    <div class="swap"><div class="no"><div class="lab">✕ Instead of</div><p>“My advisor takes a small cut.”</p></div><div class="yes"><div class="lab">✓ Say</div><p>“I pay a 1% fee. On $200,000, that’s $2,000 a year.”</p></div><div class="why"><div class="lab">Why</div><p>A management fee is a share of all your money, every year, whether it grows or not. 1% × $200,000 = $2,000.</p></div></div>
+    <div class="swap"><div class="no"><div class="lab">✕ Instead of</div><p>“Work gives me free money for retirement.”</p></div><div class="yes"><div class="lab">✓ Say</div><p>“My employer matches 4% in my 401(k).”</p></div><div class="why"><div class="lab">Why</div><p>If you put 4% of your pay into your retirement account, your job adds another 4% on top.</p></div></div>
+    <div class="swap"><div class="no"><div class="lab">✕ Instead of</div><p>“The company is worth $10 billion.”</p></div><div class="yes"><div class="lab">✓ Say</div><p>“Its market cap is $10 billion.”</p></div><div class="why"><div class="lab">Why</div><p>Market cap is the share price times the number of shares. It’s what all the shares are worth together.</p></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Why words matter</div>
+  <h2>One word can cost you $374,000.</h2>
+  <p class="sub">The word is “management fee.” Lots of people pay one without knowing what it adds up to. Here’s the math.</p>
+  <div class="math">
+    <div class="card"><div class="big">$1,522,451</div><p>$200,000 left to grow 7% a year for 30 years.<span class="how">200,000 × 1.07³⁰ = 200,000 × 7.612</span></p></div>
+    <div class="card"><div class="big">$1,148,698</div><p>The same money with a 1% yearly fee, so it grows 6%.<span class="how">200,000 × 1.06³⁰ = 200,000 × 5.743</span></p></div>
+    <div class="card hot"><div class="big">$373,753</div><p>What the 1% fee cost over 30 years.<span class="how">1,522,451 − 1,148,698</span></p></div>
+  </div>
+  <p class="note">Example numbers. The 7% yearly growth is an assumption, not a promise. Real markets go up and down. Finspeak teaches what words mean. It is not investment advice.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">Questions</div>
+  <h2>Good questions.</h2>
+  <div class="faq">
+    <details><summary>Who is Finspeak for?</summary><p>Anyone who feels lost when the money talk starts. Total beginners, people with a 401(k) they don’t understand, and students aiming for a finance job. You pick your level when you start.</p></details>
+    <details><summary>I’m a total beginner. Is that OK?</summary><p>Yes. The first level starts at “what is interest?” Nothing is assumed. Every word is explained in plain English with a real example.</p></details>
+    <details><summary>I want a job in finance. Is it too basic for me?</summary><p>No. The “Going pro” level covers the words you need for interviews, like enterprise value, EBITDA and DCF, with practice questions.</p></details>
+    <details><summary>Is this investment advice?</summary><p>No. Finspeak teaches what finance words mean. It never tells you what to buy or sell.</p></details>
+    <details><summary>How much will it cost?</summary><p>Pricing isn’t set yet. People on the waitlist hear first.</p></details>
+    <details><summary>iPhone or Android?</summary><p>Pick your phone when you join. It tells us which one to build first.</p></details>
+  </div>
+</div></section>
+
+<section class="final" id="join"><div class="wrap">
+  <h2>Stop nodding along. Start speaking finance.</h2>
+  <p class="sub">Join the waitlist. Be first to try Finspeak.</p>
+  <form class="waitlist" data-where="footer">
+    <div class="q">Where are you starting?</div>
+    <div class="levels-pick"></div>
+    <div class="row">
+      <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+      <button class="btn" type="submit">Get early access</button>
+    </div>
+    <div class="phones"><span>My phone:</span>
+      <label><input type="radio" name="phone" value="iphone" checked><span>iPhone</span></label>
+      <label><input type="radio" name="phone" value="android"><span>Android</span></label>
+    </div>
+  </form>
+  <div class="thanks"></div>
+</div></section>
+
+<div class="wrap"><footer><span>© 2026 Finspeak. Lessons on what finance words mean. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
+
+<script src="config.js"></script>
+<script>
+(function () {
+  // The four levels. Each has sample words, a first unit path, and one real lesson question.
+  const LEVELS = {
+    beginner: {
+      em: "🐣", name: "Total beginner", short: "Beginner", says: "“Money talk goes over my head.”",
+      words: ["Interest", "Budget", "Credit score"],
+      path: [["💵", "What money is for", "Earning, saving, spending"], ["🏦", "Banks and interest", "Why your bank pays you"], ["💳", "Debt and credit scores", "What a loan really costs"], ["🧾", "Your first budget", "Where the money goes"], ["📈", "What a stock is", "Owning a piece of a company"]],
+      q: { word: "Interest", text: "You borrow $1,000. A year later the bank wants $1,050 back. What is the extra $50 called?",
+           opts: ["Interest", "A dividend", "A tax", "Profit"], right: 0,
+           why: "Interest is the price of borrowing money. Here it’s $50 ÷ $1,000 = 5% a year." },
+    },
+    starting: {
+      em: "🌱", name: "Getting started", short: "Starting out", says: "“I have a 401(k), but I don’t know what’s in it.”",
+      words: ["Index fund", "Compound growth", "401(k) match"],
+      path: [["🧾", "Your paycheck, line by line", "Gross pay, taxes, take-home"], ["🏖️", "401(k) and IRA", "Retirement accounts"], ["🧺", "Index funds", "Buying a bit of everything"], ["❄️", "Compound growth", "Growth on your growth"], ["💸", "Fees that add up", "1% sounds small"]],
+      q: { word: "Compound growth", text: "You put in $1,000. It grows 10% in year one, to $1,100. It grows 10% again in year two. How much do you have now?",
+           opts: ["$1,200", "$1,210", "$1,100", "$1,300"], right: 1,
+           why: "You earn growth on last year’s growth too. $1,100 × 1.10 = $1,210. That extra $10 is compounding." },
+    },
+    confident: {
+      em: "📈", name: "Confident", short: "Confident", says: "“I invest a little and read the money news.”",
+      words: ["Margin", "P/E ratio", "Bond yield"],
+      path: [["🏪", "Revenue, profit and margin", "How a business keeps score"], ["📰", "Reading earnings news", "What “beat estimates” means"], ["🏷️", "The P/E ratio", "Is a stock cheap or pricey?"], ["🏛️", "Bonds and interest rates", "Why prices and rates move"], ["🎈", "Inflation and the Fed", "Why prices rise"]],
+      q: { word: "P/E ratio", text: "A share costs $50. The company makes $5 of profit per share each year. What is its P/E ratio?",
+           opts: ["5", "10", "50", "250"], right: 1,
+           why: "P/E means price ÷ earnings (profit) per share. $50 ÷ $5 = 10. You pay $10 for every $1 of yearly profit." },
+    },
+    pro: {
+      em: "💼", name: "Going pro", short: "Going pro", says: "“I want a career in finance.”",
+      words: ["EBITDA", "Enterprise value", "DCF"],
+      path: [["📑", "The 3 financial statements", "Income, balance sheet, cash"], ["⚙️", "EBITDA and free cash flow", "Profit vs. real cash"], ["🏢", "Enterprise value", "The price of the whole business"], ["🔮", "DCF valuation", "What future cash is worth today"], ["🎤", "Interview-ready answers", "Walk me through a DCF"]],
+      q: { word: "Enterprise value", text: "All of a company’s shares are worth $800 million. It owes $300 million and has $100 million in cash. What is its enterprise value?",
+           opts: ["$1.0 billion", "$1.2 billion", "$600 million", "$800 million"], right: 0,
+           why: "Enterprise value is the price of the whole business: the shares, plus the debt you take on, minus the cash you get. $800M + $300M − $100M = $1.0 billion." },
+    },
+  };
+  const ORDER = ["beginner", "starting", "confident", "pro"];
+  const $ = id => document.getElementById(id);
+  let level = null;           // what the visitor picked (null until they pick)
+  let shown = "starting";     // which level the lesson phone is showing
+  let answered = false, loggedLesson = false;
+
+  // ---- logging to the Google Sheet (same form as the Pause/Pact/Rise/Unplug pages) ----
+  const C = window.SITE || {};
+  const get = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const set = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+  let vid = get("vid"); if (!vid) { vid = Math.random().toString(36).slice(2, 10); set("vid", vid); }
+  const utm = Object.fromEntries(new URLSearchParams(location.search));
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const device = isAndroid ? "android" : (/iphone|ipad/i.test(navigator.userAgent) ? "iphone" : "other");
+  function send(event, data) {
+    const h = location.hostname;
+    if (!h || h === "localhost" || h === "127.0.0.1") return;   // don't log my own previews
+    data = data || {};
+    const F = C.FORM, body = new URLSearchParams();
+    body.set(F.event, event); body.set(F.email, data.email || ""); body.set(F.phone, data.phone || "");
+    body.set(F.details, JSON.stringify({ app: C.APP, level: data.level || level || "", device, where: data.where, utm, vid, ref: document.referrer }));
+    fetch(F.url, { method: "POST", mode: "no-cors", body, keepalive: true }).catch(() => {});
+  }
+  send("visit");
+
+  // ---- level pickers in both forms ----
+  document.querySelectorAll(".levels-pick").forEach((box, i) => {
+    box.innerHTML = ORDER.map(k => `<label><input type="radio" name="level" value="${k}"><span class="em">${LEVELS[k].em}</span>${LEVELS[k].short}</label>`).join("");
+    box.addEventListener("change", e => setLevel(e.target.value, true));
+  });
+
+  // ---- level cards + path ----
+  $("lvCards").innerHTML = ORDER.map((k, i) => {
+    const L = LEVELS[k];
+    return `<button class="lv" type="button" data-level="${k}"><div class="em">${L.em}</div><div class="step">Level ${i + 1}</div><h3>${L.name}</h3><p class="says">${L.says}</p><div class="chips">${L.words.map(w => `<span class="chip">${w}</span>`).join("")}</div></button>`;
+  }).join("");
+  $("lvCards").addEventListener("click", e => { const b = e.target.closest(".lv"); if (b) setLevel(b.dataset.level, true); });
+
+  function drawPath(k) {
+    const L = LEVELS[k];
+    $("pathEm").textContent = L.em; $("pathName").textContent = L.name;
+    const shift = [0, 46, 72, 46, 0];
+    $("pathNodes").innerHTML = L.path.map(([em, t, s], i) =>
+      `<div class="node${i === 0 ? " now" : ""}" style="margin-left:${shift[i]}px"><div class="dot">${em}</div><div class="lbl">${t}<small>${s}</small></div></div>`).join("");
+    document.querySelectorAll(".lv").forEach(b => b.classList.toggle("on", b.dataset.level === k));
+  }
+
+  function setLevel(k, fromUser) {
+    if (fromUser) level = k;
+    document.querySelectorAll(`.levels-pick input[value="${k}"]`).forEach(r => r.checked = true);
+    drawPath(k);
+    if (k !== shown || !answered) { shown = k; drawLesson(); }
+  }
+
+  // ---- the live lesson in the phone ----
+  function drawLesson() {
+    const L = LEVELS[shown], Q = L.q;
+    answered = false;
+    $("lessonBody").style.display = ""; $("endcard").style.display = "none";
+    $("sheet").className = "sheet";
+    $("lessonTag").textContent = "New word · " + L.name;
+    $("lessonWord").textContent = Q.word;
+    $("lessonQ").textContent = Q.text;
+    $("lessonBar").style.width = (25 + ORDER.indexOf(shown) * 15) + "%";
+    $("lessonOpts").className = "opts";
+    $("lessonOpts").innerHTML = Q.opts.map((o, i) => `<button class="opt" type="button" data-i="${i}">${o}</button>`).join("");
+  }
+  $("lessonOpts").addEventListener("click", e => {
+    const b = e.target.closest(".opt"); if (!b || answered) return;
+    answered = true;
+    const Q = LEVELS[shown].q, i = +b.dataset.i, ok = i === Q.right;
+    $("lessonOpts").classList.add("done");
+    b.classList.add(ok ? "right" : "wrong");
+    if (!ok) $("lessonOpts").children[Q.right].classList.add("right");
+    $("sheetTitle").textContent = ok ? "Nice! You got it." : "Not quite. It’s “" + Q.opts[Q.right] + ".”";
+    $("sheetWhy").textContent = Q.why;
+    $("sheet").className = "sheet show" + (ok ? "" : " bad");
+    if (ok) { const x = $("xp"); x.classList.remove("pop"); void x.offsetWidth; x.classList.add("pop"); }
+    $("lessonBar").style.width = "100%";
+    if (!loggedLesson) { loggedLesson = true; send("lesson", { where: shown + ":" + (ok ? "right" : "wrong"), level: shown }); }
+  });
+  $("sheetNext").addEventListener("click", () => {
+    $("sheet").classList.remove("show");
+    $("lessonBody").style.display = "none"; $("endcard").style.display = "flex";
+  });
+  $("tryNext").addEventListener("click", () => {
+    shown = ORDER[(ORDER.indexOf(shown) + 1) % ORDER.length];
+    $("tryNext").textContent = shown === "pro" ? "Back to the start" : "Try a harder one";
+    drawLesson(); drawPath(shown);
+  });
+
+  // ---- signup ----
+  document.querySelectorAll("form.waitlist").forEach(form => {
+    if (isAndroid) form.querySelector('input[value=android]').checked = true;
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const lv = fd.get("level") || level || "";
+      send("signup", { email: fd.get("email"), phone: fd.get("phone"), level: lv, where: form.dataset.where });
+      const name = lv ? LEVELS[lv].name : "";
+      document.querySelectorAll("form.waitlist").forEach(f => f.style.display = "none");
+      document.querySelectorAll(".thanks").forEach(t => {
+        t.innerHTML = `<b>You’re on the list. 🎉</b><span class="fine">We’ll email you the day Finspeak is ready${name ? ", starting you at <b style='display:inline;font:inherit;font-weight:700'>" + name + "</b>" : ""}.</span><br><button class="btn gold share" type="button">Send it to a friend who nods along</button>`;
+        t.style.display = "block";
+      });
+      document.querySelectorAll(".share").forEach(btn => btn.addEventListener("click", share));
+    });
+  });
+  function share() {
+    const url = location.origin + location.pathname;
+    const text = "Duolingo-style lessons for finance words. I just joined the waitlist.";
+    send("share", { where: "thanks" });
+    if (navigator.share) { navigator.share({ title: "Finspeak", text, url }).catch(() => {}); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(
+      () => document.querySelectorAll(".share").forEach(b => b.textContent = "Link copied ✓"),
+      () => prompt("Copy this link:", url));
+  }
+
+  drawPath("starting"); drawLesson();
+})();
+</script>
+</body>
+</html>
