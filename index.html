@@ -181,6 +181,15 @@
 
   /* math */
   .chart-card { margin-top:40px; background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:22px 24px 18px; }
+  .sliders { display:grid; grid-template-columns:repeat(4,1fr); gap:16px 24px; padding-bottom:18px; margin-bottom:16px; border-bottom:1px solid var(--line); }
+  .sl { display:flex; flex-direction:column; justify-content:space-between; gap:10px; font-size:14px; color:var(--sub); cursor:pointer; }
+  .sl-top { display:flex; justify-content:space-between; align-items:baseline; gap:8px; }
+  .sl-top b { font:900 19px Nunito,sans-serif; color:var(--ink); white-space:nowrap; }
+  .sl input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:99px; margin:4px 0; outline:none; cursor:pointer;
+                          background:linear-gradient(to right, var(--g) var(--p,50%), #E5E7E6 var(--p,50%)); }
+  .sl input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:0 2px 0 var(--g-dark); }
+  .sl input[type=range]::-moz-range-thumb { width:20px; height:20px; border-radius:50%; background:#fff; border:3px solid var(--g); box-shadow:0 2px 0 var(--g-dark); }
+  .sl input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow:0 0 0 5px var(--g-soft); }
   .legend { display:flex; flex-wrap:wrap; gap:8px 22px; font-size:14px; color:var(--sub); margin-bottom:8px; }
   .legend span { display:inline-flex; align-items:center; gap:8px; }
   .legend .key { width:18px; height:3px; border-radius:2px; display:inline-block; }
@@ -230,6 +239,7 @@
     .hero .phone { transform:none; }
     .lv-grid, .steps, .math, .feats { grid-template-columns:1fr; }
     .swap { grid-template-columns:1fr; }
+    .sliders { grid-template-columns:1fr 1fr; }
     section { padding:64px 0; }
   }
   @media (max-width:520px) {
@@ -250,6 +260,10 @@
     .path { padding:20px 16px 22px; }
     .node .dot { width:56px; height:52px; font-size:23px; }
     .chart-card { padding:16px 12px 14px; border-radius:22px; }
+    .sliders { gap:14px 16px; }
+    .sl { font-size:13px; }
+    .sl-top b { font-size:16px; }
+    .hide-sm { display:none; }
     .mathline { font-size:12px; }
     .tableview table { font-size:12.5px; }
     .tableview th, .tableview td { padding:6px 4px; }
@@ -359,28 +373,29 @@
 
 <section><div class="wrap">
   <div class="eyebrow">Why words matter</div>
-  <h2>One word can cost you $374,000.</h2>
-  <p class="sub">The word is “management fee.” Lots of people pay one without knowing what it adds up to. Here’s the math.</p>
+  <h2>One word can cost you <span id="feeHead">$374,000</span>.</h2>
+  <p class="sub">The word is “management fee.” Lots of people pay one without knowing what it adds up to. Move the sliders to see what it costs you.</p>
   <div class="chart-card">
+    <div class="sliders">
+      <label class="sl"><span class="sl-top"><span>Yearly fee</span><b id="vFee">1%</b></span><input type="range" id="sFee" min="0.05" max="3" step="0.05" value="1" aria-label="Yearly fee, in percent"></label>
+      <label class="sl"><span class="sl-top"><span>Amount</span><b id="vAmt">$200,000</b></span><input type="range" id="sAmt" min="10000" max="1000000" step="10000" value="200000" aria-label="Amount invested, in dollars"></label>
+      <label class="sl"><span class="sl-top"><span>Years</span><b id="vYrs">30</b></span><input type="range" id="sYrs" min="5" max="40" step="1" value="30" aria-label="Years invested"></label>
+      <label class="sl"><span class="sl-top"><span>Growth<span class="hide-sm"> before fees</span></span><b id="vG">7%</b></span><input type="range" id="sG" min="3" max="10" step="0.5" value="7" aria-label="Yearly growth before fees, in percent"></label>
+    </div>
     <div class="legend">
-      <span><i class="key" style="background:var(--g)"></i>No fee: grows 7% a year</span>
-      <span><i class="key" style="background:var(--blue)"></i>1% yearly fee: grows 6% a year</span>
+      <span><i class="key" style="background:var(--g)"></i><span id="lgA">No fee: grows 7% a year</span></span>
+      <span><i class="key" style="background:var(--blue)"></i><span id="lgB">1% yearly fee: grows 6% a year</span></span>
       <span><i class="swatch"></i>Lost to fees</span>
     </div>
-    <div class="plot" id="feeChart" tabindex="0" role="img"
-         aria-label="Line chart of $200,000 over 30 years. With no fee it grows to $1,522,451. With a 1% yearly fee it grows to $1,148,698. The fee costs $373,753. Use the left and right arrow keys to read each year.">
+    <div class="plot" id="feeChart" tabindex="0" role="img" aria-label="Line chart of money growing with and without a yearly fee.">
       <div class="tip" id="feeTip" hidden></div>
     </div>
-    <div class="mathline">
-      <div><span>No fee: 200,000 × 1.07³⁰</span> <span>= 200,000 × 7.612</span> <span>= <b>$1,522,451</b></span></div>
-      <div><span>1% fee: 200,000 × 1.06³⁰</span> <span>= 200,000 × 5.743</span> <span>= <b>$1,148,698</b></span></div>
-      <div><span>Lost to fees: 1,522,451 − 1,148,698</span> <span>= <b>$373,753</b></span></div>
-    </div>
+    <div class="mathline" id="feeMath"></div>
     <details class="tableview"><summary>See the numbers by year</summary>
-      <table><thead><tr><th>Year</th><th>No fee</th><th>1% fee</th><th>Lost to fees</th></tr></thead><tbody id="feeTable"></tbody></table>
+      <table><thead><tr><th>Year</th><th>No fee</th><th id="thB">1% fee</th><th>Lost to fees</th></tr></thead><tbody id="feeTable"></tbody></table>
     </details>
   </div>
-  <p class="note">Example numbers. The 7% yearly growth is an assumption, not a promise. Real markets go up and down. Finspeak teaches what words mean. It is not investment advice.</p>
+  <p class="note">Example numbers. Growth is an assumption, not a promise. Real markets go up and down. To keep the math simple, a 1% fee is counted as 1% less growth each year. Finspeak teaches what words mean. It is not investment advice.</p>
 </div></section>
 
 <section><div class="wrap">
@@ -611,16 +626,31 @@
       () => prompt("Copy this link:", url));
   }
 
-  // ---- fee chart: $200,000 at 7% vs 6% a year for 30 years ----
+  // ---- fee chart with sliders: the same money with no fee vs. a yearly fee ----
+  // For simple math, a fee of F% is treated as F% less growth each year (7% growth, 1% fee -> 6%).
   (function feeChart() {
     const plot = $("feeChart"), tip = $("feeTip"), NS = "http://www.w3.org/2000/svg";
-    const START = 200000, YEARS = 30, MAXY = 1600000;
-    const rows = Array.from({ length: YEARS + 1 }, (_, y) => ({ y, a: START * 1.07 ** y, b: START * 1.06 ** y }));
+    const S = { fee: 1, amt: 200000, yrs: 30, g: 7 };
     const money = n => "$" + Math.round(n).toLocaleString("en-US");
-    const tick = v => v === 0 ? "$0" : v >= 1e6 ? "$" + v / 1e6 + "M" : "$" + v / 1e3 + "K";
+    const num = n => Math.round(n).toLocaleString("en-US");
+    const pct = v => +v.toFixed(2) + "%";
+    const rate = g => { const t = g.toFixed(4).replace(/0+$/, ""); return (t.split(".")[1] || "").length < 2 ? g.toFixed(2) : t; };
+    const sup = n => String(n).replace(/\d/g, d => "⁰¹²³⁴⁵⁶⁷⁸⁹"[d]);
+    const short = v => v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1e3) + "K";
+    const tick = v => v === 0 ? "$0" : v >= 1e6 ? "$" + +(v / 1e6).toFixed(2) + "M" : "$" + +(v / 1e3).toFixed(1) + "K";
     const lost = r => Math.round(r.a) - Math.round(r.b);
     const C = { a: "#12B76A", b: "#4C7DFF", gap: "rgba(229,72,77,.16)", bracket: "#E5484D", grid: "#ECEAE3", base: "#D6D3C9", text: "rgba(15,26,20,.58)", ink: "#0F1A14" };
-    let geo = null, svg = null, hover = null;
+    let rows = [], maxY = 1, yStep = 1, geo = null, svg = null, hover = null, touched = false;
+
+    function niceStep(max) {
+      const raw = max / 4, mag = 10 ** Math.floor(Math.log10(raw));
+      for (const m of [1, 2, 2.5, 5, 10]) if (m * mag >= raw) return m * mag;
+    }
+    function compute() {
+      const ga = 1 + S.g / 100, gb = 1 + (S.g - S.fee) / 100;
+      rows = Array.from({ length: S.yrs + 1 }, (_, y) => ({ y, a: S.amt * ga ** y, b: S.amt * gb ** y }));
+      yStep = niceStep(rows[S.yrs].a); maxY = Math.ceil(rows[S.yrs].a / yStep) * yStep;
+    }
 
     function el(name, attrs, parent, text) {
       const n = document.createElementNS(NS, name);
@@ -632,10 +662,10 @@
 
     function draw() {
       const W = plot.clientWidth; if (!W) return;
-      const small = W < 520, H = small ? 270 : 340;
-      const m = { l: small ? 40 : 54, r: small ? 62 : 112, t: 14, b: 30 };
+      const small = W < 520, H = small ? 270 : 340, YEARS = S.yrs;
+      const m = { l: small ? 44 : 56, r: small ? 62 : 112, t: 14, b: 30 };
       const pw = W - m.l - m.r, ph = H - m.t - m.b;
-      const x = y => m.l + (y / YEARS) * pw, yv = v => m.t + ph - (v / MAXY) * ph;
+      const x = y => m.l + (y / YEARS) * pw, yv = v => m.t + ph - (v / maxY) * ph;
       geo = { x, yv, m, pw, ph, W, H };
       if (svg) svg.remove();
       svg = document.createElementNS(NS, "svg");
@@ -644,13 +674,17 @@
       const txt = { "font-family": "Inter, system-ui, sans-serif", "font-size": 12, fill: C.text };
 
       // y grid + ticks
-      for (let v = 0; v <= MAXY; v += 400000) {
+      for (let v = 0; v <= maxY + 1; v += yStep) {
         el("line", { x1: m.l, x2: m.l + pw, y1: yv(v), y2: yv(v), stroke: v === 0 ? C.base : C.grid, "stroke-width": 1 });
         el("text", { ...txt, x: m.l - 8, y: yv(v) + 4, "text-anchor": "end" }, null, tick(v));
       }
-      // x ticks
-      for (let y = 0; y <= YEARS; y += small ? 10 : 5)
-        el("text", { ...txt, x: x(y), y: H - 8, "text-anchor": y === 0 ? "start" : y === YEARS ? "end" : "middle" }, null, small ? (y === YEARS ? "30 yrs" : String(y)) : (y === 0 || y === YEARS ? "Year " + y : String(y)));
+      // x ticks: a clean step, plus the last year
+      const xStep = [1, 2, 5, 10].find(s => YEARS / s <= (small ? 4 : 8));
+      const ticks = [];
+      for (let y = 0; y <= YEARS; y += xStep) ticks.push(y);
+      if (ticks[ticks.length - 1] !== YEARS) { if (YEARS - ticks[ticks.length - 1] < xStep * 0.6) ticks.pop(); ticks.push(YEARS); }
+      ticks.forEach(y => el("text", { ...txt, x: x(y), y: H - 8, "text-anchor": y === 0 ? "start" : y === YEARS ? "end" : "middle" }, null,
+        y === 0 ? (small ? "0" : "Year 0") : y === YEARS ? (small ? y + " yrs" : "Year " + y) : String(y)));
 
       // the gap between the lines = money lost to fees
       const top = rows.map(r => `${x(r.y)},${yv(r.a)}`), bottom = rows.slice().reverse().map(r => `${x(r.y)},${yv(r.b)}`);
@@ -658,21 +692,54 @@
       el("polyline", { points: rows.map(r => `${x(r.y)},${yv(r.b)}`).join(" "), fill: "none", stroke: C.b, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" });
       el("polyline", { points: top.join(" "), fill: "none", stroke: C.a, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" });
 
-      // end labels at year 30, with a bracket over the gap
-      const end = rows[YEARS], ex = x(YEARS), ya = yv(end.a), yb = yv(end.b), lx = ex + 18;
-      const lab = small ? (v => v >= 1e6 ? "$" + (v / 1e6).toFixed(2) + "M" : "$" + Math.round(v / 1e3) + "K") : money;
-      el("line", { x1: ex + 9, x2: ex + 9, y1: ya + 6, y2: yb - 6, stroke: C.bracket, "stroke-width": 2, "stroke-linecap": "round" });
-      el("text", { ...txt, x: lx, y: ya + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, lab(end.a));
-      el("text", { ...txt, x: lx, y: (ya + yb) / 2 + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, "−" + lab(lost(end)));
-      el("text", { ...txt, x: lx, y: yb + 4, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 }, null, lab(end.b));
-      el("circle", { cx: ex, cy: ya, r: 4.5, fill: C.a, stroke: "#fff", "stroke-width": 2 });
+      // end labels, with a bracket over the gap; spread them apart if the gap is thin
+      const end = rows[YEARS], ex = x(YEARS), ya = yv(end.a), yb = yv(end.b), lx = ex + 18, mid = (ya + yb) / 2;
+      const lab = small ? short : money, gapPx = yb - ya, room = 15;
+      const ly = gapPx >= room * 2 ? [ya, mid, yb] : [mid - room, mid, mid + room];
+      if (gapPx > 14) el("line", { x1: ex + 9, x2: ex + 9, y1: ya + 6, y2: yb - 6, stroke: C.bracket, "stroke-width": 2, "stroke-linecap": "round" });
+      const endTxt = { ...txt, x: lx, fill: C.ink, "font-weight": 700, "font-size": small ? 12 : 13 };
+      el("text", { ...endTxt, y: ly[0] + 4 }, null, lab(end.a));
+      el("text", { ...endTxt, y: ly[1] + 4 }, null, "−" + lab(lost(end)));
+      el("text", { ...endTxt, y: ly[2] + 4 }, null, lab(end.b));
       el("circle", { cx: ex, cy: yb, r: 4.5, fill: C.b, stroke: "#fff", "stroke-width": 2 });
+      el("circle", { cx: ex, cy: ya, r: 4.5, fill: C.a, stroke: "#fff", "stroke-width": 2 });
 
-      // hover layer (crosshair + dots), drawn on demand
+      // hover layer (crosshair + dots), shown on demand
       hover = el("g", { opacity: 0 });
       hover.line = el("line", { y1: m.t, y2: m.t + ph, stroke: "rgba(15,26,20,.35)", "stroke-width": 1 }, hover);
       hover.da = el("circle", { r: 4.5, fill: C.a, stroke: "#fff", "stroke-width": 2 }, hover);
       hover.db = el("circle", { r: 4.5, fill: C.b, stroke: "#fff", "stroke-width": 2 }, hover);
+    }
+
+    // words and numbers around the chart follow the sliders too
+    function span(parent, text, boldText) {
+      const s = document.createElement("span"); s.textContent = text;
+      if (boldText) { const b = document.createElement("b"); b.textContent = boldText; s.appendChild(b); }
+      parent.append(s, " ");
+    }
+    function updateText() {
+      const end = rows[S.yrs], L = lost(end), ga = 1 + S.g / 100, gb = 1 + (S.g - S.fee) / 100;
+      $("feeHead").textContent = money(L >= 10000 ? Math.round(L / 1000) * 1000 : Math.round(L / 10) * 10);
+      $("lgA").textContent = "No fee: grows " + pct(S.g) + " a year";
+      $("lgB").textContent = pct(S.fee) + " yearly fee: grows " + pct(S.g - S.fee) + " a year";
+      $("thB").textContent = pct(S.fee) + " fee";
+      const box = $("feeMath"); box.replaceChildren();
+      [["No fee", ga, end.a], [pct(S.fee) + " fee", gb, end.b]].forEach(([name, g, v]) => {
+        const d = document.createElement("div");
+        span(d, `${name}: ${num(S.amt)} × ${rate(g)}${sup(S.yrs)}`);
+        span(d, `= ${num(S.amt)} × ${(g ** S.yrs).toFixed(3)}`);
+        span(d, "= ", money(v));
+        box.appendChild(d);
+      });
+      const d = document.createElement("div");
+      span(d, `Lost to fees: ${num(end.a)} − ${num(end.b)}`); span(d, "= ", money(L)); box.appendChild(d);
+      plot.setAttribute("aria-label", `Line chart of ${money(S.amt)} over ${S.yrs} years. With no fee it grows to ${money(end.a)}. With a ${pct(S.fee)} yearly fee it grows to ${money(end.b)}. The fee costs ${money(L)}. Use the left and right arrow keys to read each year.`);
+      const tb = $("feeTable"); tb.replaceChildren();
+      rows.filter(r => r.y % 5 === 0 || r.y === S.yrs).forEach(r => {
+        const tr = document.createElement("tr");
+        [String(r.y), money(r.a), money(r.b), money(lost(r))].forEach(v => { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
+        tb.appendChild(tr);
+      });
     }
 
     function row(parent, keyClass, keyColor, value, label) {
@@ -682,7 +749,6 @@
       const s = document.createElement("span"); s.textContent = label;
       r.append(k, b, s); parent.appendChild(r);
     }
-
     function show(year) {
       if (!geo) return;
       const r = rows[year], { x, yv, W } = geo, px = x(year);
@@ -693,7 +759,7 @@
       tip.replaceChildren();
       const t = document.createElement("div"); t.className = "t"; t.textContent = "After " + year + (year === 1 ? " year" : " years"); tip.appendChild(t);
       row(tip, "", C.a, money(r.a), "No fee");
-      row(tip, "", C.b, money(r.b), "1% fee");
+      row(tip, "", C.b, money(r.b), pct(S.fee) + " fee");
       row(tip, "area", "", money(lost(r)), "Lost to fees");
       tip.hidden = false;
       const tw = tip.offsetWidth, left = px + 14 + tw > W ? px - 14 - tw : px + 14;
@@ -703,28 +769,37 @@
     function hide() { if (hover) hover.setAttribute("opacity", 0); tip.hidden = true; }
     function yearAt(clientX) {
       const box = plot.getBoundingClientRect(), { m, pw } = geo;
-      return Math.max(0, Math.min(YEARS, Math.round(((clientX - box.left - m.l) / pw) * YEARS)));
+      return Math.max(0, Math.min(S.yrs, Math.round(((clientX - box.left - m.l) / pw) * S.yrs)));
     }
 
     plot.addEventListener("pointermove", e => show(yearAt(e.clientX)));
     plot.addEventListener("pointerdown", e => show(yearAt(e.clientX)));
     plot.addEventListener("pointerleave", hide);
-    plot.addEventListener("focus", () => show(+plot.dataset.year || YEARS));
+    plot.addEventListener("focus", () => show(Math.min(+plot.dataset.year || S.yrs, S.yrs)));
     plot.addEventListener("blur", hide);
     plot.addEventListener("keydown", e => {
       const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!step) return;
-      e.preventDefault(); show(Math.max(0, Math.min(YEARS, (+plot.dataset.year || YEARS) + step)));
+      e.preventDefault(); show(Math.max(0, Math.min(S.yrs, Math.min(+plot.dataset.year || S.yrs, S.yrs) + step)));
     });
 
-    // table view: every 5 years
-    const tb = $("feeTable");
-    rows.filter(r => r.y % 5 === 0).forEach(r => {
-      const tr = document.createElement("tr");
-      [String(r.y), money(r.a), money(r.b), money(lost(r))].forEach(v => { const td = document.createElement("td"); td.textContent = v; tr.appendChild(td); });
-      tb.appendChild(tr);
+    // the sliders
+    const SL = [["sFee", "fee", "vFee", pct], ["sAmt", "amt", "vAmt", money], ["sYrs", "yrs", "vYrs", String], ["sG", "g", "vG", pct]];
+    function readSlider([id, key, out, fmt]) {
+      const r = $(id), v = parseFloat(r.value);
+      S[key] = key === "yrs" ? Math.round(v) : v;
+      $(out).textContent = fmt(S[key]);
+      r.style.setProperty("--p", ((v - r.min) / (r.max - r.min)) * 100 + "%");
+    }
+    SL.forEach(s => {
+      readSlider(s);
+      $(s[0]).addEventListener("input", () => {
+        readSlider(s); hide(); delete plot.dataset.year;
+        compute(); draw(); updateText();
+        if (!touched) { touched = true; send("chart", { where: "slider:" + s[1] }); }
+      });
     });
 
-    draw();
+    compute(); draw(); updateText();
     if (window.ResizeObserver) new ResizeObserver(() => { hide(); draw(); }).observe(plot);
     else addEventListener("resize", () => { hide(); draw(); });
   })();
