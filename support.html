@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finspeak Support</title><link rel="icon" href="img/icon.svg" type="image/svg+xml">
+<style>body{background:#FBFAF6;color:#0F1A14;font:17px/1.65 Inter,system-ui,sans-serif;margin:0}main{max-width:720px;margin:0 auto;padding:48px 20px 80px}
+h1{font:900 40px ui-rounded,system-ui,sans-serif;margin:0 0 6px}h2{font:800 22px ui-rounded,system-ui,sans-serif;margin:36px 0 8px}p{color:rgba(15,26,20,.65)}a{color:#0A8A4E}</style>
+</head><body><main><p><a href="index.html">← Finspeak</a></p>
+<h1>Support</h1>
+<p>Stuck, or found a mistake in a lesson? Email <a class="email" href="#">us</a>. We usually reply within a day.</p>
+
+<h2>How do reviews work?</h2>
+<p>Each word you learn comes back for review just before you're likely to forget it. Get it right and the next review comes later: 1 day, then 3 days, then longer each time. Get it wrong and the word comes back in about 10 minutes. The Review tab shows how many words are due today.</p>
+
+<h2>My daily reminder didn't show up</h2>
+<p>Open your iPhone's Settings → Notifications → Finspeak and turn on Allow Notifications. Then open Finspeak, tap Me, and pick a reminder time.</p>
+
+<h2>How do I start over?</h2>
+<p>Tap Me → Start over. This erases your progress on this phone and can't be undone.</p>
+
+<h2>Will my progress move to a new phone?</h2>
+<p>Finspeak has no accounts, so your progress is saved on your phone only. If you set up your new phone from a backup of your old one, your progress usually comes with it.</p>
+
+<h2>Where do the examples come from?</h2>
+<p>From Akshay Ramachandran's posts, videos and calls. Each word card has a link to its source.</p>
+
+<h2>Is this investment advice?</h2>
+<p>No. Finspeak teaches what finance words mean. It doesn't tell you what to buy or sell.</p>
+
+<h2>Privacy</h2>
+<p>The app doesn't collect any data. See the <a href="privacy.html">privacy policy</a>.</p>
+</main>
+<script src="config.js"></script>
+<script>
+  const e = (window.SITE || {}).SUPPORT_EMAIL;
+  document.querySelectorAll("a.email").forEach(a => { if (e) { a.href = "mailto:" + e; a.textContent = e; } else { a.removeAttribute("href"); a.textContent = "(email coming soon)"; } });
+</script>
+</body></html>

@@ -1,13 +1,35 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Finspeak Privacy</title><link rel="icon" href="img/icon.svg" type="image/svg+xml">
 <style>body{background:#FBFAF6;color:#0F1A14;font:17px/1.65 Inter,system-ui,sans-serif;margin:0}main{max-width:720px;margin:0 auto;padding:48px 20px 80px}
-h1{font:900 40px ui-rounded,system-ui,sans-serif;margin:0 0 6px}h2{font:800 22px ui-rounded,system-ui,sans-serif;margin:36px 0 8px}p{color:rgba(15,26,20,.65)}a{color:#0A8A4E}.date{font-size:14px}</style>
+h1{font:900 40px ui-rounded,system-ui,sans-serif;margin:0 0 6px}h2{font:800 22px ui-rounded,system-ui,sans-serif;margin:36px 0 8px}h3{font:800 18px ui-rounded,system-ui,sans-serif;margin:24px 0 4px}p,li{color:rgba(15,26,20,.65)}a{color:#0A8A4E}.date{font-size:14px}</style>
 </head><body><main><p><a href="index.html">← Finspeak</a></p>
-<h1>Privacy Policy</h1><p class="date">Last updated: October 25, 2026</p>
-<p>Finspeak is a learning app that is still being built. This page covers the waitlist website.</p>
-<h2>What we keep</h2><p>If you join the waitlist, we store your email, the level you picked, and which phone you use. We also count page visits and lesson taps, tied to a random visitor number, not your name.</p>
-<h2>What we use it for</h2><p>Only to tell you about Finspeak and to learn which levels people want most. We don't sell it or share it.</p>
-<h2>Deleting it</h2><p>Reply to any Finspeak email and ask, and we'll delete your details.</p>
+<h1>Privacy Policy</h1><p class="date">Last updated: October 27, 2026</p>
+<p>Finspeak teaches the words of finance in short lessons. This page covers the Finspeak app and this website.</p>
+
+<h2>The app</h2>
+<h3>We don't collect anything</h3>
+<p>The Finspeak app has no accounts and no sign-in. It doesn't send your answers, your progress or anything else to us. It has no ads and no tracking.</p>
+<h3>Your progress stays on your phone</h3>
+<p>The words you've learned, your streak, your daily goal and your reminder time are saved on your phone only. To erase them, tap Me → Start over, or delete the app.</p>
+<h3>Reminders</h3>
+<p>If you turn on the daily reminder, your phone sets it up and shows it. We never see it.</p>
+<h3>Links to other sites</h3>
+<p>Some lessons link to the post or video the example came from, on Substack, YouTube or X. Those sites have their own privacy policies.</p>
+<h3>What Apple may share with us</h3>
+<p>If you chose to share data with app developers in your iPhone settings, Apple may send us crash reports and usage counts, like how many people opened the app. These don't include your name.</p>
+
+<h2>This website</h2>
+<h3>What we keep</h3><p>If you join the waitlist, we store your email, the level you picked, and which phone you use. We also count page visits and lesson taps, tied to a random visitor number, not your name.</p>
+<h3>What we use it for</h3><p>Only to tell you about Finspeak and to learn which levels people want most. We don't sell it or share it.</p>
+<h3>Deleting it</h3><p>Reply to any Finspeak email and ask, and we'll delete your details.</p>
+<h3>Children</h3><p>The waitlist is not meant for children under 13.</p>
+
 <h2>Not advice</h2><p>Finspeak teaches what finance words mean. It is not investment advice.</p>
-<h2>Children</h2><p>Finspeak is not meant for children under 13.</p>
-</main></body></html>
+<h2>Questions</h2><p>Email <a class="email" href="#">us</a>, or see the <a href="support.html">support page</a>.</p>
+</main>
+<script src="config.js"></script>
+<script>
+  const e = (window.SITE || {}).SUPPORT_EMAIL;
+  document.querySelectorAll("a.email").forEach(a => { if (e) { a.href = "mailto:" + e; a.textContent = e; } else { a.removeAttribute("href"); a.textContent = "(email coming soon)"; } });
+</script>
+</body></html>

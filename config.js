@@ -2,6 +2,7 @@
 // Each row: event (visit / lesson / signup), email, phone (iphone / android), details (JSON with level, device, utm, visitor id).
 window.SITE = {
   "APP": "finspeak",
+  "SUPPORT_EMAIL": "aramach1194@gmail.com",   // shown on support.html and privacy.html; blank shows "(email coming soon)"
   "FORM": {
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSchgoJpHHT-KMXoSxqGe0HgOYzXgOySUGYj81JAlnXxU_lHhQ/formResponse",
     "event": "entry.995633958",
