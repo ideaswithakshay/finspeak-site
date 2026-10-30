@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Finspeak: Learn to Speak Finance</title>
-<meta name="description" content="Bite-sized lessons for the words money people use. Plain English, 5 minutes a day, built for your level.">
+<title>Finspeak: Learn Finance Through the News</title>
+<meta name="description" content="One real money or business headline a day, explained from zero in 5 minutes of swipes. Plain English, real numbers, built for your level.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Finspeak: Learn to Speak Finance">
-<meta property="og:description" content="Bite-sized lessons for the words money people use. 5 minutes a day, built for your level. Join the waitlist.">
+<meta property="og:title" content="Finspeak: Learn Finance Through the News">
+<meta property="og:description" content="One real headline a day, explained from zero. Swipe through it in 5 minutes. Join the waitlist.">
 <meta property="og:url" content="https://ideaswithakshay.github.io/finspeak-site/">
 <meta property="og:image" content="https://ideaswithakshay.github.io/finspeak-site/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -290,6 +290,72 @@
     .nav-cta { display:none; }
     footer a { margin:0 18px 0 0; }
   }
+  /* daily story demo (hero phone) */
+  .screen.story { background:#F3F6F4; }
+  .appbar .cnt { font:800 12px Nunito,sans-serif; color:#8A978F; min-width:30px; text-align:right; }
+  .deck { position:relative; flex:1; min-height:478px; }
+  .scard { position:absolute; inset:0; background:#fff; border:2px solid #DDE4E0; border-bottom-width:5px; border-radius:22px; padding:16px 15px 13px;
+           display:flex; flex-direction:column; gap:9px; touch-action:none; cursor:grab; user-select:none; -webkit-user-select:none; will-change:transform; }
+  .scard.under { transform:translateY(9px) scale(.955); pointer-events:none; }
+  .scard.under > * { visibility:hidden; }
+  .scard.concept { background:#E5F6EC; border-color:#BFE6CF; }
+  .scard.quiz { background:#E9EFFF; border-color:#C9D7FF; }
+  .scard.cover, .scard.recap { background:#FFF3D6; border-color:#F5D99A; }
+  .scard.deep { box-shadow:inset 0 0 0 3px rgba(76,125,255,.28); }
+  .scard.wiggle { animation:wiggle 1.6s ease-in-out 1.2s 2; }
+  @keyframes wiggle { 20% { transform:translateX(18px) rotate(1.5deg); } 45% { transform:translateX(-10px) rotate(-1deg); } 65%,100% { transform:none; } }
+  .scard .eb { font:900 10.5px Nunito,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#7E8C84; }
+  .scard.concept .eb { color:#0A7D47; } .scard.quiz .eb, .scard.deep .eb { color:#2D55C2; } .scard.cover .eb, .scard.recap .eb { color:#9A6400; }
+  .scard .mid { flex:1; display:flex; flex-direction:column; justify-content:center; gap:10px; }
+  .scard h4 { font-size:27px; line-height:1.08; }
+  .jgw { text-decoration:underline; text-decoration-color:#FFB020; text-decoration-thickness:3px; text-underline-offset:4px; text-decoration-skip-ink:none; }
+  .scard p { font:700 15.5px/1.4 Nunito,sans-serif; color:#14201A; }
+  .scard p.soft { font-weight:600; color:#4A5A52; }
+  .scard .bignum { font:900 25px Nunito,sans-serif; letter-spacing:-.01em; }
+  .scard .term { font:900 34px/1 Nunito,sans-serif; color:#0A7D47; }
+  .scard .formula { font:900 14px/1.35 Nunito,sans-serif; background:#fff; border:2px dashed #9ED9B8; border-radius:12px; padding:9px 10px; text-align:center; }
+  .scard .ex { font:600 13px/1.4 Inter,sans-serif; color:#4A5A52; background:rgba(255,255,255,.7); border-radius:12px; padding:9px 10px; }
+  .scard .src { display:flex; gap:6px; align-items:center; font:600 10.5px Inter,sans-serif; color:#7E8C84; }
+  .scard .conf { font:900 9px Nunito,sans-serif; letter-spacing:.06em; text-transform:uppercase; border-radius:99px; padding:2px 7px; background:#E5F6EC; color:#0A7D47; flex:none; }
+  .scard .conf.likely { background:#FFF3D6; color:#9A6400; }
+  .scard .bars { display:grid; gap:7px; }
+  .scard .bl { font:800 11.5px Nunito,sans-serif; color:#4A5A52; }
+  .scard .bt { display:flex; align-items:center; gap:6px; }
+  .scard .bf { height:13px; border-radius:0 5px 5px 0; background:#B9C6BF; min-width:3px; }
+  .scard .bf.hl { background:var(--gold); }
+  .scard .bv { font:900 12.5px Nunito,sans-serif; }
+  .scard .deeper { align-self:flex-start; font:900 12px Nunito,sans-serif; color:#2D55C2; background:#E9EFFF; border:2px solid #B9CBFF; border-bottom-width:3px; border-radius:99px; padding:6px 11px; cursor:pointer; }
+  .scard .qo { display:grid; gap:7px; }
+  .scard .qo button { text-align:left; padding:10px 12px; border-radius:12px; background:#fff; border:2px solid #E5E7E6; border-bottom-width:3px; font:800 14px Nunito,sans-serif; cursor:pointer; }
+  .scard .qo button.right { border-color:var(--g); background:var(--g-soft); color:var(--g-dark); }
+  .scard .qo button.wrong { border-color:var(--red); background:var(--red-soft); color:var(--red-dark); }
+  .scard .ok { font:800 13px Nunito,sans-serif; color:var(--g-dark); }
+  .scard .mini { width:100%; max-width:200px; align-self:center; border-radius:16px; background:#0C1310; }
+  .scard .btn { height:44px; font-size:15px; }
+  .swipehint { text-align:center; font:800 12px Nunito,sans-serif; color:#8A978F; padding-top:10px; }
+
+  /* why the news */
+  .decode { margin-top:36px; background:var(--surface); border:2px solid var(--line); border-radius:26px; padding:26px; display:grid; gap:18px; }
+  .decode .lab { font:900 13px Nunito,sans-serif; letter-spacing:.08em; text-transform:uppercase; color:var(--sub); }
+  .headline { font:900 clamp(24px,3.4vw,34px)/1.2 Nunito,sans-serif; letter-spacing:-.01em; }
+  .headline button { font:inherit; background:none; border:0; padding:0; cursor:pointer; color:inherit; text-decoration:underline; text-decoration-color:var(--gold); text-decoration-thickness:.14em; text-underline-offset:.16em; }
+  .headline button[aria-pressed="true"] { color:var(--g-dark); }
+  .meaning { display:flex; gap:14px; align-items:flex-start; background:var(--g-soft); border-radius:18px; padding:16px 18px; }
+  .meaning b { font:900 17px Nunito,sans-serif; color:var(--g-dark); display:block; margin-bottom:2px; }
+  .meaning p { color:#25302A; }
+
+  /* the map */
+  .mapsec { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  .mapimg { background:radial-gradient(closest-side, rgba(31,174,102,.12), transparent); border-radius:50%; }
+  .mapimg img { display:block; width:100%; height:auto; }
+  .mappoints { display:grid; gap:14px; margin-top:28px; }
+  .mappoints div { display:flex; gap:12px; align-items:flex-start; color:var(--night-sub); }
+  .mappoints i { width:12px; height:12px; border-radius:50%; flex:none; margin-top:7px; }
+  .mappoints b { color:var(--night-ink); }
+
+  /* word course */
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+  @media (max-width:900px) { .mapsec, .two { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -299,9 +365,9 @@
 
   <header class="hero">
     <div>
-      <span class="pill">🔥 5-minute lessons for money words</span>
-      <h1>Learn to speak <span class="hl">finance.</span></h1>
-      <p class="lead">Bite-sized lessons on the words money people use. Plain English, real examples, 5 minutes a day. Built for your level, from “what’s a stock?” to your first finance job.</p>
+      <span class="pill">📰 Today: Anthropic’s $2 trillion IPO, explained</span>
+      <h1>Finally <span class="hl">understand</span> the news.</h1>
+      <p class="lead">One real money or business headline a day. Swipe through it and learn every idea behind it, from zero. Plain English, real numbers, 5 minutes. Built for your level, from “what’s a stock?” to your first finance job.</p>
       <form class="waitlist" data-where="hero">
         <div class="q">Where are you starting?</div>
         <div class="levels-pick"></div>
@@ -318,6 +384,86 @@
     </div>
 
     <div>
+      <div class="phone" id="storyPhone">
+        <div class="screen story">
+          <div class="notch"></div>
+          <div class="appbar"><span class="x">‹</span><div class="bar"><i id="storyBar" style="width:14%"></i></div><span class="cnt" id="storyCnt">1/7</span></div>
+          <div class="deck" id="deck" aria-live="polite"></div>
+          <div class="swipehint" id="swipeHint">← Swipe the card →</div>
+        </div>
+      </div>
+      <div class="tryme">👆 Swipe it. This is a real story from this week.</div>
+    </div>
+  </header>
+</div>
+
+<section id="why"><div class="wrap">
+  <div class="eyebrow">Why the news</div>
+  <h2>The news assumes you already know.</h2>
+  <p class="sub">A business reporter has a few hundred words. There’s no room to explain what a market cap is, or why 513 times profit is scary. So most people read the headline and nod along. Finspeak starts every story from zero.</p>
+  <div class="decode">
+    <div class="lab">This week’s news in one line. Tap the underlined words.</div>
+    <div class="headline">Anthropic files for an <button type="button" data-m="0" aria-pressed="true">IPO</button> that could value it at <button type="button" data-m="1" aria-pressed="false">$2 trillion</button>, after an <button type="button" data-m="2" aria-pressed="false">$80.7 billion loss</button>.</div>
+    <div class="meaning" id="meaning"></div>
+  </div>
+  <div class="steps">
+    <div class="card"><div class="n">1</div><h3>One real headline a day</h3><p>A story from this week’s money and business news. Today it’s Anthropic’s IPO. Tomorrow it might be the Fed, Nike or the price of oil.</p></div>
+    <div class="card"><div class="n">2</div><h3>Every idea, from zero</h3><p>Each idea starts with a simple example, like a lemonade stand. Then you see the real numbers, with the math shown.</p></div>
+    <div class="card"><div class="n">3</div><h3>Go as deep as you want</h3><p>Swipe up on any idea to open the smaller ideas inside it. Then swipe back into the story where you left it.</p></div>
+  </div>
+</div></section>
+
+<section class="night" id="map"><div class="wrap mapsec">
+  <div>
+    <div class="eyebrow">Your map of ideas</div>
+    <h2>Watch what you know connect.</h2>
+    <p class="sub">Every idea is a puzzle piece. Ideas that explain each other sit side by side, even across topics. Each piece you learn turns gold. Zoom into any big piece and it is a puzzle of smaller ones.</p>
+    <div class="mappoints">
+      <div><i style="background:#FFB020"></i><span><b>Learn P/E in a story about Anthropic.</b> It turns gold right next to market cap, profit and growth.</span></div>
+      <div><i style="background:#1FAE66"></i><span><b>Tap any piece to zoom in.</b> The pieces around it are the ideas it connects to, each one labeled.</span></div>
+      <div><i style="background:#5A86EE"></i><span><b>Finance, business, the economy and your own money.</b> Every new story adds pieces.</span></div>
+    </div>
+  </div>
+  <div class="mapimg"><img src="img/idea-map.svg" width="600" height="600" alt="A puzzle of money ideas. Market cap sits in the middle. The ideas it connects to fit around it, like P/E ratio, IPO and revenue vs. profit. Ideas from today’s story are gold."></div>
+</div></section>
+
+<section id="levels"><div class="wrap">
+  <div class="eyebrow">Built for your level</div>
+  <h2>Start where you are.</h2>
+  <p class="sub">A 2-minute quiz finds your level. You skip what you already know and start where it gets new. Tap a level to see its path.</p>
+  <div class="lv-grid">
+    <div class="lv-cards" id="lvCards"></div>
+    <div class="path">
+      <div class="path-head"><span style="font-size:28px" id="pathEm"></span><div><small>Your path</small><b id="pathName"></b></div></div>
+      <div class="nodes" id="pathNodes"></div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="eyebrow">How it works</div>
+  <h2>Five minutes a day. That’s it.</h2>
+  <p class="sub">Read one real story, then practice the words. It’s short on purpose, so you actually come back tomorrow.</p>
+  <div class="steps">
+    <div class="card"><div class="n">1</div><h3>Find your level</h3><p>Answer a few quick questions. Total beginner or future analyst, you start in the right spot.</p></div>
+    <div class="card"><div class="n">2</div><h3>Swipe through today’s story</h3><p>One real headline, split into the ideas behind it. Plain English first, then the real numbers.</p></div>
+    <div class="card"><div class="n">3</div><h3>Practice until it sticks</h3><p>Short word lessons at your level. The words you miss come back until they stick. Keep your streak alive.</p></div>
+  </div>
+  <div class="feats">
+    <div class="feat"><div class="e">🗣️</div><div><h3>Plain English first</h3><p class="fine">No textbook talk. Every word is explained like you’re 11, with real numbers.</p></div></div>
+    <div class="feat"><div class="e">🔁</div><div><h3>Words come back</h3><p class="fine">Miss a word and it shows up again a few days later, right before you’d forget it.</p></div></div>
+    <div class="feat"><div class="e">🔥</div><div><h3>Streaks and XP</h3><p class="fine">A daily goal of 3, 5 or 10 minutes. Small enough to do on the train.</p></div></div>
+    <div class="feat"><div class="e">🔎</div><div><h3>Every number has a source</h3><p class="fine">Each fact shows where it came from. Green means a company filing or official data. Gold means a news report.</p></div></div>
+  </div>
+</div></section>
+
+<section id="words"><div class="wrap two">
+  <div>
+    <div class="eyebrow">Plus the word course</div>
+    <h2>Speak it, not just read it.</h2>
+    <p class="sub">Short lessons on the words money people use, at your level. One new word, a real example and a quick question. The words you miss come back until they stick. Try one.</p>
+  </div>
+  <div>
       <div class="phone" id="lesson">
         <div class="screen">
           <div class="notch"></div>
@@ -345,37 +491,6 @@
       </div>
       <div class="tryme">👆 Try a real lesson. Tap an answer.</div>
     </div>
-  </header>
-</div>
-
-<section id="levels"><div class="wrap">
-  <div class="eyebrow">Built for your level</div>
-  <h2>Start where you are.</h2>
-  <p class="sub">A 2-minute quiz finds your level. You skip what you already know and start where it gets new. Tap a level to see its path.</p>
-  <div class="lv-grid">
-    <div class="lv-cards" id="lvCards"></div>
-    <div class="path">
-      <div class="path-head"><span style="font-size:28px" id="pathEm"></span><div><small>Your path</small><b id="pathName"></b></div></div>
-      <div class="nodes" id="pathNodes"></div>
-    </div>
-  </div>
-</div></section>
-
-<section><div class="wrap">
-  <div class="eyebrow">How it works</div>
-  <h2>Five minutes a day. That’s it.</h2>
-  <p class="sub">Every lesson is one new word, a real-life example, and a quick question. It’s short on purpose, so you actually come back tomorrow.</p>
-  <div class="steps">
-    <div class="card"><div class="n">1</div><h3>Find your level</h3><p>Answer a few quick questions. Total beginner or future analyst, you start in the right spot.</p></div>
-    <div class="card"><div class="n">2</div><h3>Learn a few words a day</h3><p>Each word is explained in plain English first. Then you see it in a paycheck, a headline, or a job offer.</p></div>
-    <div class="card"><div class="n">3</div><h3>Keep your streak</h3><p>Earn XP and keep your streak alive. The words you miss come back until they stick.</p></div>
-  </div>
-  <div class="feats">
-    <div class="feat"><div class="e">🗣️</div><div><h3>Plain English first</h3><p class="fine">No textbook talk. Every word is explained like you’re 11, with real numbers.</p></div></div>
-    <div class="feat"><div class="e">🔁</div><div><h3>Words come back</h3><p class="fine">Miss a word and it shows up again a few days later, right before you’d forget it.</p></div></div>
-    <div class="feat"><div class="e">🔥</div><div><h3>Streaks and XP</h3><p class="fine">A daily goal of 3, 5 or 10 minutes. Small enough to do on the train.</p></div></div>
-    <div class="feat"><div class="e">💬</div><div><h3>Ask anything</h3><p class="fine">Heard a word on a call or in the news? Ask, and get a plain answer back.</p></div></div>
-  </div>
 </div></section>
 
 <section class="night"><div class="wrap">
@@ -439,19 +554,21 @@
   <div class="eyebrow">Questions</div>
   <h2>Good questions.</h2>
   <div class="faq">
-    <details><summary>Who is Finspeak for?</summary><p>Anyone who feels lost when the money talk starts. Total beginners, people with a 401(k) they don’t understand, and students aiming for a finance job. You pick your level when you start.</p></details>
+    <details><summary>What is a daily story?</summary><p>One real piece of money or business news, explained in about 30 swipe cards. Every idea in it is taught from zero. You get a simple example first, then the real numbers, a chart or two and a quick check.</p></details>
+    <details><summary>Where do the numbers come from?</summary><p>Company filings, official data like the Federal Reserve and the Labor Department, and news reports. Every fact card shows its source. Green tags mean a filing or official number. Gold tags mean a news report.</p></details>
+    <details><summary>Who is Finspeak for?</summary><p>Anyone who reads the news and feels lost when the money talk starts. Total beginners, people with a 401(k) they don’t understand, and students aiming for a finance job. You pick your level when you start.</p></details>
     <details><summary>I don’t work in finance. Is this for me?</summary><p>Yes. The company you work for runs on these words. Learn them and you can see how it makes money, and show the value you create in dollars.</p></details>
     <details><summary>I’m a total beginner. Is that OK?</summary><p>Yes. The first level starts at “what is interest?” Nothing is assumed. Every word is explained in plain English with a real example.</p></details>
     <details><summary>I want to work at a hedge fund. Is it too basic for me?</summary><p>No. The “Work at a hedge fund” level teaches how investors size up a business. You learn the six questions every good stock pitch answers, Peter Lynch’s six types of stock, and what keeps rivals out, like scale, network effects and switching costs. Then the numbers: return on invested capital (ROIC), incremental ROIC, the loyalty effect, and a rough yearly return (IRR) in five minutes.</p></details>
-    <details><summary>Is this investment advice?</summary><p>No. Finspeak teaches what finance words mean. It never tells you what to buy or sell.</p></details>
+    <details><summary>Is this investment advice?</summary><p>No. Finspeak explains what the news and the words mean. When people disagree, you see both sides. It never tells you what to buy or sell.</p></details>
     <details><summary>How much will it cost?</summary><p>Pricing isn’t set yet. People on the waitlist hear first.</p></details>
     <details><summary>iPhone or Android?</summary><p>Pick your phone when you join. It tells us which one to build first.</p></details>
   </div>
 </div></section>
 
 <section class="final" id="join"><div class="wrap">
-  <h2>Stop nodding along. Start speaking finance.</h2>
-  <p class="sub">Join the waitlist. Be first to try Finspeak.</p>
+  <h2>Stop nodding along. Start understanding the news.</h2>
+  <p class="sub">Join the waitlist. Be first to try the new Finspeak.</p>
   <form class="waitlist" data-where="footer">
     <div class="q">Where are you starting?</div>
     <div class="levels-pick"></div>
@@ -467,7 +584,7 @@
   <div class="thanks"></div>
 </div></section>
 
-<div class="wrap"><footer><span>Lessons on what finance words mean. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
+<div class="wrap"><footer><span>Finspeak: learn finance through the news. Lessons on what money news and words mean. Not investment advice.</span><span><a href="privacy.html">Privacy</a></span></footer></div>
 
 <script src="config.js"></script>
 <script>
@@ -858,6 +975,91 @@
   })();
 
   drawPath("starting"); drawLesson();
+})();
+</script>
+
+<script>
+// Hero demo: seven cards from the real Anthropic story. Swipe left or right for the next card, swipe up to go deeper.
+(function () {
+  const deck = document.getElementById('deck');
+  if (!deck) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bars = [['Alphabet (Google)', 22], ['Microsoft', 24], ['Amazon', 25], ['Anthropic at $2T', 513]];
+  const CARDS = [
+    { k: 'cover', html: `<div class="eb">Today’s top story · Oct 30</div><div class="mid"><h4>Anthropic targets a $2 trillion <u class="jgw">valuation</u> in its <u class="jgw">IPO</u></h4><p><b>Anthropic wants a $2 trillion price tag.</b></p><p class="soft">What that number means, and why people are arguing about it.</p></div><div class="src"><span class="conf">9 ideas</span>About 6 minutes</div>` },
+    { k: 'news', html: `<div class="eb">The news</div><div class="mid"><div class="bignum">$2,000,000,000,000</div><p>News reports say Anthropic wants to be valued at about $2 trillion.</p><p class="soft">That is a 2 with 12 zeros after it.</p></div><div class="src"><span class="conf likely">Likely</span>Fortune, Aug 13. Forbes, Oct 26.</div>` },
+    { k: 'concept', html: `<div class="eb">New idea · 2 of 9</div><div class="mid"><div class="term">Market cap</div><p>The price of the whole company.</p><div class="formula">Price of one share × Number of shares</div><div class="ex">A lemonade stand has 100 shares at $5 each. 100 × $5 = $500.</div></div>` },
+    { k: 'chart', html: `<div class="eb">This is the gap</div><div class="mid"><p>Price ÷ yearly profit from running the business</p><div class="bars">${bars.map(([l, v]) => `<div><div class="bl">${l}</div><div class="bt"><div class="bf${v > 100 ? ' hl' : ''}" style="width:${Math.max(2, v / 513 * 72)}%"></div><span class="bv">${v}</span></div></div>`).join('')}</div><p class="soft">$2,000 billion ÷ $3.9 billion = 513. That gap is why people are freaking out.</p></div><div class="src"><span class="conf">Confirmed</span>Anthropic’s IPO filing, stockanalysis.com</div>` },
+    { k: 'concept', deeper: true, html: `<div class="eb">New idea · 4 of 9</div><div class="mid"><div class="term">P/E ratio</div><p>Price ÷ one year of profit. How many dollars you pay for each $1 of yearly profit.</p><div class="ex">Anthropic lost $80.7 billion in six months. You can’t divide by a loss, so it has no P/E at all.</div><button class="deeper" type="button">↑ Swipe up: Why such a huge loss?</button></div>` },
+    { k: 'quiz', quiz: true, html: `<div class="eb">Quick check</div><div class="mid"><p>A company is worth $300 billion. It makes $10 billion of profit a year. What is its P/E?</p><div class="qo"><button type="button" data-a="1">30</button><button type="button" data-a="0">3,000</button><button type="button" data-a="0">310</button></div><div class="ok" hidden>Right! 300 ÷ 10 = 30.</div></div>` },
+    { k: 'recap', end: true, html: `<div class="eb">Today you learned</div><div class="mid"><h4>9 new ideas</h4><img class="mini" src="img/idea-map.svg" alt="Your idea puzzle, with today’s ideas in gold"><p class="soft">Each one is now a gold piece on your map, next to the ideas it connects to.</p><a class="btn" href="#join" style="display:grid;place-items:center;text-decoration:none">Get early access</a></div>` },
+  ];
+  const DEEP = { k: 'concept deep', html: `<div class="eb">Go deeper · Level 2</div><div class="mid"><p>Most of that $80.7 billion never left the bank.</p><p class="soft">Loans that turn into shares grew in value, and accounting counts that as a loss. Running the business lost only $0.7 billion.</p><p class="soft">Swipe to jump back into the story.</p></div><div class="src"><span class="conf">Confirmed</span>Anthropic’s IPO filing</div>` };
+  let i = 0, inDeep = false, answered = false, swiped = false;
+  const bar = document.getElementById('storyBar'), cnt = document.getElementById('storyCnt'), hint = document.getElementById('swipeHint');
+
+  function cur() { return inDeep ? DEEP : CARDS[i]; }
+  function render() {
+    const c = cur(), next = inDeep ? CARDS[i + 1] : CARDS[i + 1];
+    deck.innerHTML = (next ? `<div class="scard under ${next.k}"></div>` : '') + `<div class="scard ${c.k}${!swiped && i === 0 ? ' wiggle' : ''}" id="topcard">${c.html}</div>`;
+    bar.style.width = `${(i + 1) / CARDS.length * 100}%`;
+    cnt.textContent = inDeep ? 'Lvl 2' : `${i + 1}/${CARDS.length}`;
+    hint.textContent = c.quiz && !answered ? 'Tap an answer' : c.end ? 'That’s the demo. The full story has 36 cards.' : c.deeper ? '← Swipe → · ↑ Swipe up to go deeper' : '← Swipe the card →';
+    bind();
+  }
+  function next() {
+    if (inDeep) { inDeep = false; i++; return true; }
+    if (CARDS[i].quiz && !answered) return false;
+    if (i < CARDS.length - 1) { i++; return true; }
+    return false;
+  }
+  function fly(dir, then) {
+    const el = document.getElementById('topcard');
+    swiped = true;
+    if (reduce) { if (then()) render(); else el.style.transform = ''; return; }
+    el.style.transition = 'transform .26s ease-in';
+    el.style.transform = dir === 'up' ? 'translateY(-130%)' : `translateX(${dir === 'right' ? 140 : -140}%) rotate(${dir === 'right' ? 16 : -16}deg)`;
+    setTimeout(() => { if (then()) render(); else { el.style.transition = 'transform .2s'; el.style.transform = ''; } }, 210);
+  }
+  function bind() {
+    const el = document.getElementById('topcard');
+    let sx = 0, sy = 0, dx = 0, dy = 0, down = false;
+    el.addEventListener('pointerdown', e => { if (e.target.closest('button, a')) return; down = true; sx = e.clientX; sy = e.clientY; dx = dy = 0; el.setPointerCapture(e.pointerId); el.style.transition = 'none'; el.classList.remove('wiggle'); });
+    el.addEventListener('pointermove', e => { if (!down) return; dx = e.clientX - sx; dy = e.clientY - sy; el.style.transform = (dy < 0 && Math.abs(dy) > Math.abs(dx)) ? `translateY(${dy * (cur().deeper ? .9 : .25)}px)` : `translate(${dx}px, ${dy * .12}px) rotate(${dx * .05}deg)`; });
+    const end = () => {
+      if (!down) return; down = false;
+      const c = cur();
+      if (dy < -70 && Math.abs(dy) > Math.abs(dx) && c.deeper) fly('up', () => (inDeep = true));
+      else if (Math.abs(dx) > 60 && !(c.quiz && !answered) && !c.end) fly(dx > 0 ? 'right' : 'left', next);
+      else { el.style.transition = 'transform .22s cubic-bezier(.3,1.4,.6,1)'; el.style.transform = ''; }
+    };
+    el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+    el.querySelectorAll('.qo button').forEach(b => b.addEventListener('click', () => {
+      answered = true;
+      el.querySelectorAll('.qo button').forEach(x => { x.disabled = true; x.classList.add(x.dataset.a === '1' ? 'right' : x === b ? 'wrong' : 'z'); });
+      const ok = el.querySelector('.ok'); ok.hidden = false; if (b.dataset.a !== '1') ok.textContent = 'Not quite. 300 ÷ 10 = 30.';
+      hint.textContent = '← Swipe the card →';
+    }));
+    el.querySelectorAll('.deeper').forEach(b => b.addEventListener('click', () => fly('up', () => (inDeep = true))));
+  }
+  render();
+})();
+
+// "Tap the underlined words" headline.
+(function () {
+  const M = [
+    ['IPO', 'Initial public offering. The first time a company sells its shares to anyone who wants to buy them.'],
+    ['$2 trillion', 'The price tag for the whole company: every share added up. That would be about three quarters of Amazon’s price.'],
+    ['$80.7 billion loss', 'Most of it was on paper. Loans that turn into shares grew in value, and accounting counts that as a loss. Running the business lost $0.7 billion.'],
+  ];
+  const box = document.getElementById('meaning'), btns = document.querySelectorAll('.headline button');
+  if (!box) return;
+  function show(k) {
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.m === String(k))));
+    box.innerHTML = `<div><b>${M[k][0]}</b><p>${M[k][1]}</p></div>`;
+  }
+  btns.forEach(b => b.addEventListener('click', () => show(+b.dataset.m)));
+  show(0);
 })();
 </script>
 </body>
